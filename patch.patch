@@ -1,0 +1,392 @@
+Index: app/src/main/java/com/limitless/smartbudget/ui/table/LETool.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/limitless/smartbudget/ui/table/LETool.java	(date 1569256027429)
++++ app/src/main/java/com/limitless/smartbudget/ui/table/LETool.java	(date 1569256027429)
+@@ -0,0 +1,90 @@
++/*
++ * ////////////////////////////////////////////////////////////////////////////////////////////////////
++ * ////////////////////////////////////////////////////////////////////////////////////////////////////
++ * ////////File Name: LETool.java                                        ////////
++ * ////////Class Name: LETool                                  ////////
++ * ////////Project Name: $file.projectName                           ////////
++ * ////////Copyright update: 9/23/19 7:23 PM                                       ////////
++ * ////////Author: yazan                                                   ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////                                                                                    ////////
++ * ////////////////////////////////////////////////////////////////////////////////////////////////////
++ * ////////////////////////////////////////////////////////////////////////////////////////////////////
++ */
++
++package com.limitless.smartbudget.ui.table;
++
++import android.os.Bundle;
++import android.view.LayoutInflater;
++import android.view.View;
++import android.view.ViewGroup;
++
++import androidx.fragment.app.Fragment;
++
++import com.limitless.smartbudget.R;
++
++/**
++ * A simple {@link Fragment} subclass.
++ * Use the {@link LETool#newInstance} factory method to
++ * create an instance of this fragment.
++ */
++public class LETool extends Fragment {
++    // TODO: Rename parameter arguments, choose names that match
++    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
++    private static final String ARG_PARAM1 = "param1";
++    private static final String ARG_PARAM2 = "param2";
++
++    // TODO: Rename and change types of parameters
++    private String mParam1;
++    private String mParam2;
++
++    public LETool() {
++        // Required empty public constructor
++    }
++
++    /**
++     * Use this factory method to create a new instance of
++     * this fragment using the provided parameters.
++     *
++     * @param param1 Parameter 1.
++     * @param param2 Parameter 2.
++     * @return A new instance of fragment LETool.
++     */
++    // TODO: Rename and change types and number of parameters
++    public static LETool newInstance(String param1, String param2) {
++        LETool fragment = new LETool();
++        Bundle args = new Bundle();
++        args.putString(ARG_PARAM1, param1);
++        args.putString(ARG_PARAM2, param2);
++        fragment.setArguments(args);
++        return fragment;
++    }
++
++    @Override
++    public void onCreate(Bundle savedInstanceState) {
++        super.onCreate(savedInstanceState);
++        if (getArguments() != null) {
++            mParam1 = getArguments().getString(ARG_PARAM1);
++            mParam2 = getArguments().getString(ARG_PARAM2);
++        }
++    }
++
++    @Override
++    public View onCreateView(LayoutInflater inflater, ViewGroup container,
++                             Bundle savedInstanceState) {
++        // Inflate the layout for this fragment
++        return inflater.inflate(R.layout.fragment_le_tool, container, false);
++    }
++}
+Index: app/src/main/res/drawable/table_tabs_bg.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/table_tabs_bg.xml	(date 1569256029187)
++++ app/src/main/res/drawable/table_tabs_bg.xml	(date 1569256029187)
+@@ -0,0 +1,30 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////File Name: table_tabs_bg.xml                                        ////////
++  ~ ////////Class Name: table_tabs_bg.xml                                  ////////
++  ~ ////////Project Name: $file.projectName                           ////////
++  ~ ////////Copyright update: 9/23/19 2:28 PM                                       ////////
++  ~ ////////Author: yazan                                                   ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  -->
++
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:drawable="@android:color/white" android:state_selected="true" />
++    <item android:drawable="@android:color/transparent" />
++</selector>
+\ No newline at end of file
+Index: app/src/main/res/drawable/tab_tools_color.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/tab_tools_color.xml	(date 1569256029152)
++++ app/src/main/res/drawable/tab_tools_color.xml	(date 1569256029152)
+@@ -0,0 +1,30 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////File Name: tab_tools_color.xml                                        ////////
++  ~ ////////Class Name: tab_tools_color.xml                                  ////////
++  ~ ////////Project Name: $file.projectName                           ////////
++  ~ ////////Copyright update: 9/23/19 5:12 PM                                       ////////
++  ~ ////////Author: yazan                                                   ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  -->
++
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:drawable="@color/colorPrimaryDark" android:state_selected="true" />
++    <item android:drawable="@android:color/transparent" />
++</selector>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_le_tool.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/fragment_le_tool.xml	(date 1569256029120)
++++ app/src/main/res/layout/fragment_le_tool.xml	(date 1569256029120)
+@@ -0,0 +1,39 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////File Name: fragment_le_tool.xml                                        ////////
++  ~ ////////Class Name: fragment_le_tool.xml                                  ////////
++  ~ ////////Project Name: $file.projectName                           ////////
++  ~ ////////Copyright update: 9/23/19 7:23 PM                                       ////////
++  ~ ////////Author: yazan                                                   ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  -->
++
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    xmlns:tools="http://schemas.android.com/tools"
++    android:layout_width="match_parent"
++    android:layout_height="match_parent"
++    tools:context=".ui.table.LETool">
++
++    <!-- TODO: Update blank fragment layout -->
++    <TextView
++        android:layout_width="match_parent"
++        android:layout_height="match_parent"
++        android:text="@string/hello_blank_fragment" />
++
++</FrameLayout>
+\ No newline at end of file
+Index: app/src/main/res/values/font_certs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/font_certs.xml	(date 1569256029054)
++++ app/src/main/res/values/font_certs.xml	(date 1569256029054)
+@@ -0,0 +1,42 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////File Name: font_certs.xml                                        ////////
++  ~ ////////Class Name: font_certs.xml                                  ////////
++  ~ ////////Project Name: $file.projectName                           ////////
++  ~ ////////Copyright update: 9/23/19 12:59 PM                                       ////////
++  ~ ////////Author: yazan                                                   ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  -->
++
++<resources>
++    <array name="com_google_android_gms_fonts_certs">
++        <item>@array/com_google_android_gms_fonts_certs_dev</item>
++        <item>@array/com_google_android_gms_fonts_certs_prod</item>
++    </array>
++    <string-array name="com_google_android_gms_fonts_certs_dev">
++        <item>
++            MIIEqDCCA5CgAwIBAgIJANWFuGx90071MA0GCSqGSIb3DQEBBAUAMIGUMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEQMA4GA1UEChMHQW5kcm9pZDEQMA4GA1UECxMHQW5kcm9pZDEQMA4GA1UEAxMHQW5kcm9pZDEiMCAGCSqGSIb3DQEJARYTYW5kcm9pZEBhbmRyb2lkLmNvbTAeFw0wODA0MTUyMzM2NTZaFw0zNTA5MDEyMzM2NTZaMIGUMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEQMA4GA1UEChMHQW5kcm9pZDEQMA4GA1UECxMHQW5kcm9pZDEQMA4GA1UEAxMHQW5kcm9pZDEiMCAGCSqGSIb3DQEJARYTYW5kcm9pZEBhbmRyb2lkLmNvbTCCASAwDQYJKoZIhvcNAQEBBQADggENADCCAQgCggEBANbOLggKv+IxTdGNs8/TGFy0PTP6DHThvbbR24kT9ixcOd9W+EaBPWW+wPPKQmsHxajtWjmQwWfna8mZuSeJS48LIgAZlKkpFeVyxW0qMBujb8X8ETrWy550NaFtI6t9+u7hZeTfHwqNvacKhp1RbE6dBRGWynwMVX8XW8N1+UjFaq6GCJukT4qmpN2afb8sCjUigq0GuMwYXrFVee74bQgLHWGJwPmvmLHC69EH6kWr22ijx4OKXlSIx2xT1AsSHee70w5iDBiK4aph27yH3TxkXy9V89TDdexAcKk/cVHYNnDBapcavl7y0RiQ4biu8ymM8Ga/nmzhRKya6G0cGw8CAQOjgfwwgfkwHQYDVR0OBBYEFI0cxb6VTEM8YYY6FbBMvAPyT+CyMIHJBgNVHSMEgcEwgb6AFI0cxb6VTEM8YYY6FbBMvAPyT+CyoYGapIGXMIGUMQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEQMA4GA1UEChMHQW5kcm9pZDEQMA4GA1UECxMHQW5kcm9pZDEQMA4GA1UEAxMHQW5kcm9pZDEiMCAGCSqGSIb3DQEJARYTYW5kcm9pZEBhbmRyb2lkLmNvbYIJANWFuGx90071MAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEEBQADggEBABnTDPEF+3iSP0wNfdIjIz1AlnrPzgAIHVvXxunW7SBrDhEglQZBbKJEk5kT0mtKoOD1JMrSu1xuTKEBahWRbqHsXclaXjoBADb0kkjVEJu/Lh5hgYZnOjvlba8Ld7HCKePCVePoTJBdI4fvugnL8TsgK05aIskyY0hKI9L8KfqfGTl1lzOv2KoWD0KWwtAWPoGChZxmQ+nBli+gwYMzM1vAkP+aayLe0a1EQimlOalO762r0GXO0ks+UeXde2Z4e+8S/pf7pITEI/tP+MxJTALw9QUWEv9lKTk+jkbqxbsh8nfBUapfKqYn0eidpwq2AzVp3juYl7//fKnaPhJD9gs=
++        </item>
++    </string-array>
++    <string-array name="com_google_android_gms_fonts_certs_prod">
++        <item>
++            MIIEQzCCAyugAwIBAgIJAMLgh0ZkSjCNMA0GCSqGSIb3DQEBBAUAMHQxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtHb29nbGUgSW5jLjEQMA4GA1UECxMHQW5kcm9pZDEQMA4GA1UEAxMHQW5kcm9pZDAeFw0wODA4MjEyMzEzMzRaFw0zNjAxMDcyMzEzMzRaMHQxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpDYWxpZm9ybmlhMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtHb29nbGUgSW5jLjEQMA4GA1UECxMHQW5kcm9pZDEQMA4GA1UEAxMHQW5kcm9pZDCCASAwDQYJKoZIhvcNAQEBBQADggENADCCAQgCggEBAKtWLgDYO6IIrgqWbxJOKdoR8qtW0I9Y4sypEwPpt1TTcvZApxsdyxMJZ2JORland2qSGT2y5b+3JKkedxiLDmpHpDsz2WCbdxgxRczfey5YZnTJ4VZbH0xqWVW/8lGmPav5xVwnIiJS6HXk+BVKZF+JcWjAsb/GEuq/eFdpuzSqeYTcfi6idkyugwfYwXFU1+5fZKUaRKYCwkkFQVfcAs1fXA5V+++FGfvjJ/CxURaSxaBvGdGDhfXE28LWuT9ozCl5xw4Yq5OGazvV24mZVSoOO0yZ31j7kYvtwYK6NeADwbSxDdJEqO4k//0zOHKrUiGYXtqw/A0LFFtqoZKFjnkCAQOjgdkwgdYwHQYDVR0OBBYEFMd9jMIhF1Ylmn/Tgt9r45jk14alMIGmBgNVHSMEgZ4wgZuAFMd9jMIhF1Ylmn/Tgt9r45jk14aloXikdjB0MQswCQYDVQQGEwJVUzETMBEGA1UECBMKQ2FsaWZvcm5pYTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLR29vZ2xlIEluYy4xEDAOBgNVBAsTB0FuZHJvaWQxEDAOBgNVBAMTB0FuZHJvaWSCCQDC4IdGZEowjTAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBAUAA4IBAQBt0lLO74UwLDYKqs6Tm8/yzKkEu116FmH4rkaymUIE0P9KaMftGlMexFlaYjzmB2OxZyl6euNXEsQH8gjwyxCUKRJNexBiGcCEyj6z+a1fuHHvkiaai+KL8W1EyNmgjmyy8AW7P+LLlkR+ho5zEHatRbM/YAnqGcFh5iZBqpknHf1SKMXFh4dd239FJ1jWYfbMDMy3NS5CTMQ2XFI1MvcyUTdZPErjQfTbQe3aDQsQcafEQPD+nqActifKZ0Np0IS9L9kR/wbNvyz6ENwPiTrjV2KRkEjH78ZMcUQXg0L3BYHJ3lc69Vs5Ddf9uUGGMYldX3WfMBEmh/9iFBDAaTCK
++        </item>
++    </string-array>
++</resources>
+Index: app/src/main/res/values/preloaded_fonts.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/values/preloaded_fonts.xml	(date 1569256028973)
++++ app/src/main/res/values/preloaded_fonts.xml	(date 1569256028973)
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////File Name: preloaded_fonts.xml                                        ////////
++  ~ ////////Class Name: preloaded_fonts.xml                                  ////////
++  ~ ////////Project Name: $file.projectName                           ////////
++  ~ ////////Copyright update: 9/23/19 12:59 PM                                       ////////
++  ~ ////////Author: yazan                                                   ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  -->
++
++<resources>
++    <array name="preloaded_fonts" translatable="false">
++        <item>@font/ubuntu_bold</item>
++    </array>
++</resources>
+Index: app/src/main/res/drawable/btn_bg.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/drawable/btn_bg.xml	(date 1569256029084)
++++ app/src/main/res/drawable/btn_bg.xml	(date 1569256029084)
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////File Name: btn_bg.xml                                        ////////
++  ~ ////////Class Name: btn_bg.xml                                  ////////
++  ~ ////////Project Name: $file.projectName                           ////////
++  ~ ////////Copyright update: 9/23/19 6:55 PM                                       ////////
++  ~ ////////Author: yazan                                                   ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  -->
++
++<selector xmlns:android="http://schemas.android.com/apk/res/android">
++    <item android:drawable="@color/colorPrimaryDark" android:state_enabled="false" />
++    <item android:drawable="@color/design_default_color_primary" android:state_pressed="true" />
++    <item android:drawable="@color/colorPrimary" />
++</selector>
+\ No newline at end of file
+Index: app/src/main/res/font/ubuntu_bold.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/font/ubuntu_bold.xml	(date 1569256029010)
++++ app/src/main/res/font/ubuntu_bold.xml	(date 1569256029010)
+@@ -0,0 +1,31 @@
++<?xml version="1.0" encoding="utf-8"?><!--
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////File Name: ubuntu_bold.xml                                        ////////
++  ~ ////////Class Name: ubuntu_bold.xml                                  ////////
++  ~ ////////Project Name: $file.projectName                           ////////
++  ~ ////////Copyright update: 9/23/19 12:59 PM                                       ////////
++  ~ ////////Author: yazan                                                   ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////                                                                                    ////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
++  -->
++
++<font-family xmlns:app="http://schemas.android.com/apk/res-auto"
++    app:fontProviderAuthority="com.google.android.gms.fonts"
++    app:fontProviderCerts="@array/com_google_android_gms_fonts_certs"
++    app:fontProviderPackage="com.google.android.gms"
++    app:fontProviderQuery="name=Ubuntu&amp;weight=700"></font-family>
