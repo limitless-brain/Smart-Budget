@@ -4,7 +4,7 @@
  * ////////File Name: TableEditFragment.java                                        ////////
  * ////////Class Name: TableEditFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -35,6 +35,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -45,7 +46,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.adroitandroid.chipcloud.ChipCloud;
 import com.adroitandroid.chipcloud.ChipListener;
@@ -58,7 +58,6 @@ import com.limitless.smartbudget.db.model.FixedExpenses;
 import com.limitless.smartbudget.db.model.Incomes;
 import com.limitless.smartbudget.db.model.LivingExpenses;
 import com.limitless.smartbudget.interfaces.OnTableManagementListener;
-import com.limitless.smartbudget.ui.TableManagementViewModel;
 import com.limitless.smartbudget.utils.Constants;
 
 import org.jetbrains.annotations.NotNull;
@@ -71,6 +70,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,11 +82,11 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     //  State Variables
     private Context mContext;
     private int mTable;
-    private String selectedCategory;
+    private int selectedItem;
     private boolean addNew = true;
-    private ArrayAdapter mArrayAdapter;
     private String mDateString;
-    private TableManagementViewModel mViewModel;
+    private String selectedCategory;
+    private ArrayAdapter mArrayAdapter;
 
     //  UI elements
     private TextView mDateTitleTextView;
@@ -128,7 +128,6 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        mViewModel = ViewModelProviders.of(this).get(TableManagementViewModel.class);
     }
 
     @Override
@@ -179,7 +178,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     public void onTargetTableChanged(int table) {
         mTable = table;
         addNew = true;
-        mViewModel.selectedItem = -1;
+        selectedItem = -1;
         selectedCategory = null;
         updateTargetTable(mTable);
     }
@@ -346,7 +345,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 if (mCategoryChipCloud.getChildCount() < 2)
                     return;
                 mCategoryChipCloud.removeAllViews();
-                selectedCategory = mCategoryList.get(index).toString();
+                selectedCategory = ((Category) mCategoryList.get(index)).getName();
                 mCategoryChipCloud.addChip(selectedCategory);
                 mCategoryChipCloud.setSelectedChip(0);
                 checkRecordAvailability();
@@ -355,8 +354,10 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
             @Override
             public void chipDeselected(int index) {
                 mCategoryChipCloud.removeAllViews();
+                selectedCategory = null;
                 for (Object category : mCategoryList)
                     mCategoryChipCloud.addChip(((Category) category).getName());
+                checkRecordAvailability();
             }
         });
 
@@ -418,6 +419,10 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
 
         //  Confirm button click listener
         mConfirmButton.setOnClickListener(view -> {
+            InputMethodManager inputMethodManager =
+                    (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert inputMethodManager != null;
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
             try {
                 interactWithTable(mTable, addNew);
             } catch (ParseException | NullPointerException e) {
@@ -431,6 +436,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                selectedItem = i;
                 PopupMenu menu = new PopupMenu(mContext, view);
                 menu.inflate(R.menu.list_item_menu);
                 menu.show();
@@ -439,6 +445,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.delete:
+                                addNew = true;
                                 deleteRecord(mTable);
                                 break;
                             case R.id.update:
@@ -491,19 +498,20 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         switch (table) {
             case Constants.LIVING_EXPENSES:
                 if (mLivingExpensesList.size() < 1) return;
-                LivingExpenses record = (LivingExpenses) mLivingExpensesList.get(mViewModel.selectedItem);
+                LivingExpenses record = (LivingExpenses) mLivingExpensesList.get(selectedItem);
                 String date = Constants.dateToString(record.getDate(), Constants.DATE_PATTERN, Locale.US);
                 mDateString = date;
                 mDateEditText.setText(date);
                 mCategoryChipCloud.removeAllViews();
-                mCategoryChipCloud.addChip(record.getCategory().getName());
+                selectedCategory = record.getCategory().getName();
+                mCategoryChipCloud.addChip(selectedCategory);
                 mCategoryChipCloud.setSelectedChip(0);
                 mValueEditText.setText(record.getValue());
                 mDescriptionEditText.setText(record.getDescription());
                 break;
             case Constants.FIXED_EXPENSES:
                 if (mFixedExpensesList.size() < 1) return;
-                FixedExpenses record1 = (FixedExpenses) mFixedExpensesList.get(mViewModel.selectedItem);
+                FixedExpenses record1 = (FixedExpenses) mFixedExpensesList.get(selectedItem);
                 String date1 = Constants.dateToString(record1.getDate(), Constants.DATE_PATTERN, Locale.US);
                 mDateString = date1;
                 mDateEditText.setText(date1);
@@ -512,15 +520,12 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 break;
             case Constants.INCOMES:
                 if (mIncomesList.size() < 1) return;
-                Incomes record2 = (Incomes) mIncomesList.get(mViewModel.selectedItem);
+                Incomes record2 = (Incomes) mIncomesList.get(selectedItem);
                 String date2 = Constants.dateToString(record2.getDate(), Constants.DATE_PATTERN, Locale.US);
                 mDateString = date2;
                 mDateEditText.setText(date2);
                 mValueEditText.setText(record2.getValue());
                 mDescriptionEditText.setText(record2.getDescription());
-                break;
-            case Constants.SAVING:
-
                 break;
         }
     }
@@ -536,8 +541,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
             case Constants.LIVING_EXPENSES:
                 for (Object o : mLivingExpensesList) {
                     LivingExpenses livingExpenses = (LivingExpenses) o;
-                    data.add(livingExpenses.getDate().toString() + "\t" + livingExpenses.getValue()
-                            + '\t' + livingExpenses.getDescription() + '\t' + livingExpenses.getCategory().getName());
+                    data.add(Objects.requireNonNull(livingExpenses.toString()));
                 }
                 break;
             case Constants.FIXED_EXPENSES:
@@ -549,9 +553,6 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 for (Object o : mIncomesList) {
                     data.add(o.toString());
                 }
-                break;
-            case Constants.SAVING:
-
                 break;
         }
 
@@ -582,7 +583,6 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         mLivingExpensesList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.LIVING_EXPENSES);
         mFixedExpensesList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.FIXED_EXPENSES);
         mIncomesList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.INCOMES);
-        //  mSaving = (List)ControlPanel.getInstance(mContext).getAllRecords(Constants.SAVING);
         mCategoryList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.CATEGORIES);
     }
 
@@ -599,7 +599,6 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         String date = mDateString;
         String value = mValueEditText.getText().toString();
         String description = mDescriptionEditText.getText().toString();
-        String target = mTargetEditText.getText().toString();
         int id;
 
         switch (table) {
@@ -613,12 +612,10 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                         Constants.dateFromString(date, Constants.DATE_PATTERN, Locale.US),
                         category, value, description);
 
-                if (addNew)
+                if (addNew || selectedItem == -1)
                     controlPanel.addRecordToTable(Constants.LIVING_EXPENSES, livingExpensesRecord);
                 else {
-                    if (mViewModel.selectedItem == -1)
-                        return;
-                    id = ((LivingExpenses) mLivingExpensesList.get(mViewModel.selectedItem)).getId();
+                    id = ((LivingExpenses) mLivingExpensesList.get(selectedItem)).getId();
                     livingExpensesRecord.setId(id);
                     controlPanel.updateRecordInTable(Constants.LIVING_EXPENSES, livingExpensesRecord);
                 }
@@ -627,12 +624,10 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 FixedExpenses fixedExpensesRecord = new FixedExpenses(
                         Constants.dateFromString(date, Constants.DATE_PATTERN, Locale.US),
                         value, description);
-                if (addNew)
+                if (addNew || selectedItem == -1)
                     controlPanel.addRecordToTable(Constants.FIXED_EXPENSES, fixedExpensesRecord);
                 else {
-                    if (mViewModel.selectedItem == -1)
-                        return;
-                    id = ((FixedExpenses) mFixedExpensesList.get(mViewModel.selectedItem)).getId();
+                    id = ((FixedExpenses) mFixedExpensesList.get(selectedItem)).getId();
                     fixedExpensesRecord.setId(id);
                     controlPanel.updateRecordInTable(Constants.FIXED_EXPENSES, fixedExpensesRecord);
                 }
@@ -641,28 +636,17 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 Incomes incomesRecord = new Incomes(
                         Constants.dateFromString(date, Constants.DATE_PATTERN, Locale.US),
                         value, description);
-                if (addNew)
+                if (addNew || selectedItem == -1)
                     controlPanel.addRecordToTable(Constants.INCOMES, incomesRecord);
                 else {
-                    if (mViewModel.selectedItem == -1)
-                        return;
-                    id = ((Incomes) mIncomesList.get(mViewModel.selectedItem)).getId();
+                    id = ((Incomes) mIncomesList.get(selectedItem)).getId();
                     incomesRecord.setId(id);
                     controlPanel.updateRecordInTable(Constants.INCOMES, incomesRecord);
                 }
                 break;
-            case Constants.SAVING:
-                /*
-                Saving savingRecord = new Saving(
-                        Constants.dateFromString(date, Constants.DATE_PATTERN, Locale.US),
-                        value, description);
-                if (addNew)
-                    controlPanel.addRecordToTable(Constants.SAVING, savingRecord);
-                else
-                    controlPanel.updateRecordInTable(Constants.SAVING, savingRecord);*/
-                break;
         }
         addNew = true;
+        selectedItem = -1;
         getTables();
         updateRecordList(table);
     }
@@ -676,19 +660,15 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         switch (table) {
             case Constants.LIVING_EXPENSES:
                 controlPanel.deleteRecordInTable(Constants.LIVING_EXPENSES,
-                        mLivingExpensesList.get(mViewModel.selectedItem));
+                        mLivingExpensesList.get(selectedItem));
                 break;
             case Constants.FIXED_EXPENSES:
                 controlPanel.deleteRecordInTable(Constants.FIXED_EXPENSES,
-                        mFixedExpensesList.get(mViewModel.selectedItem));
+                        mFixedExpensesList.get(selectedItem));
                 break;
             case Constants.INCOMES:
                 controlPanel.deleteRecordInTable(Constants.INCOMES,
-                        mIncomesList.get(mViewModel.selectedItem));
-                break;
-            case Constants.SAVING:
-                /*controlPanel.deleteRecordInTable(Constants.SAVING,
-                        mSavingList.get(mViewModel.selectedItem));*/
+                        mIncomesList.get(selectedItem));
                 break;
         }
         getTables();

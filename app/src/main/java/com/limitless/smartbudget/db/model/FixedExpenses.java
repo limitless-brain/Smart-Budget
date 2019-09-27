@@ -4,7 +4,7 @@
  * ////////File Name: FixedExpenses.java                                        ////////
  * ////////Class Name: FixedExpenses                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -27,6 +27,7 @@
 package com.limitless.smartbudget.db.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
@@ -88,6 +89,13 @@ public class FixedExpenses {
     @NonNull
     @Override
     public String toString() {
-        return getDate().toString() + ";" + getValue() + ";" + getDescription();
+        return getId() + ';' + getDate().toString() + ";" + getValue() + ";" + getDescription();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof FixedExpenses))
+            return false;
+        return this.id == ((FixedExpenses) obj).id;
     }
 }

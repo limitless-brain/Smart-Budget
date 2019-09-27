@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1084945133773",
+    "firebase_url": "https://smartbudget-b1ab3.firebaseio.com",
+    "project_id": "smartbudget-b1ab3",
+    "storage_bucket": "smartbudget-b1ab3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084945133773:android:7beb31652d877219aa7984",
+        "android_client_info": {
+          "package_name": "com.limitless.smartbudget"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084945133773-0gevfsrtupfqphpemk9qvg10gr18j6f3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.limitless.smartbudget",
+            "certificate_hash": "69508654c792fb1ab2b0aeb95ca80c0afcb19bd0"
+          }
+        },
+        {
+          "client_id": "1084945133773-0tivca5t9j34nhta7l6vpnh9sd3vjpeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9wC5XGFGfZqc0-TwU-OtYPTseHtIydqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084945133773-4p0prcia9p3bvavc96ev3uhcrl134ni5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

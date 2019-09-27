@@ -4,7 +4,7 @@
  * ////////File Name: LivingExpenses.java                                        ////////
  * ////////Class Name: LivingExpenses                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -27,6 +27,7 @@
 package com.limitless.smartbudget.db.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Entity;
@@ -43,18 +44,17 @@ public class LivingExpenses {
     @ColumnInfo(name = "date")
     private Date date;
 
-    @Embedded
     @NonNull
+    @Embedded
     private Category category;
 
     @ColumnInfo(name = "value")
-    @NonNull
     private String value;
 
     @ColumnInfo(name = "description")
     private String description;
 
-    public LivingExpenses(@NonNull Date date, @NonNull Category category, String value, String description) {
+    public LivingExpenses(Date date, Category category, String value, String description) {
         this.date = date;
         this.category = category;
         this.value = value;
@@ -77,21 +77,19 @@ public class LivingExpenses {
         this.date = date;
     }
 
-    @NonNull
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(@NonNull Category category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
-    @NonNull
     public String getValue() {
         return value;
     }
 
-    public void setValue(@NonNull String value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -101,5 +99,19 @@ public class LivingExpenses {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getId() + ';' + getDate().toString() + ';' + getCategory().toString()
+                + ';' + getValue() + ';' + getDescription();
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof LivingExpenses))
+            return false;
+        return this.id == ((LivingExpenses) obj).id;
     }
 }

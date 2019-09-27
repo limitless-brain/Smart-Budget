@@ -4,7 +4,7 @@
   ~ ////////File Name: fragment_table_management.xml                                        ////////
   ~ ////////Class Name: fragment_table_management.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+  ~ ////////Copyright update: 9/27/19 9:09 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -34,12 +34,10 @@
         android:id="@+id/TMTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         app:tabBackground="@drawable/table_tabs_bg"
         app:tabIndicatorColor="@color/colorPrimary"
-        app:tabMode="scrollable"
         app:tabRippleColor="@color/colorPrimaryDark"
+        app:tabMode="fixed"
         app:tabTextAppearance="@style/TabTextFont">
 
         <com.google.android.material.tabs.TabItem
@@ -57,10 +55,6 @@
             android:layout_height="wrap_content"
             android:text="Incomes" />
 
-        <!--com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Saving" /-->
     </com.google.android.material.tabs.TabLayout>
 
 
@@ -68,8 +62,6 @@
         android:id="@+id/TableManagementFragmentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_weight="0.4"
         android:scrollbars="none" />
 

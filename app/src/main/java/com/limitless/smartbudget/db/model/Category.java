@@ -4,7 +4,7 @@
  * ////////File Name: Category.java                                        ////////
  * ////////Class Name: Category                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -27,6 +27,7 @@
 package com.limitless.smartbudget.db.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -81,5 +82,12 @@ public class Category {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (!(obj instanceof Category))
+            return false;
+        return this.name.equals(((Category) obj).name);
     }
 }

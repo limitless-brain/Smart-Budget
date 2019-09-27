@@ -4,7 +4,7 @@
  * ////////File Name: LivingExpensesDoa.java                                        ////////
  * ////////Class Name: LivingExpensesDoa                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -43,7 +43,7 @@ public interface LivingExpensesDoa {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(LivingExpenses livingExpenses);
 
-    @Update(onConflict = OnConflictStrategy.IGNORE)
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(LivingExpenses livingExpenses);
 
     @Delete

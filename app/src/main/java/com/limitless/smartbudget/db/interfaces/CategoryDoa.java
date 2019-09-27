@@ -4,7 +4,7 @@
  * ////////File Name: CategoryDoa.java                                        ////////
  * ////////Class Name: CategoryDoa                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -43,7 +43,7 @@ public interface CategoryDoa {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Category category);
 
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     void update(Category category);
 
     @Delete

@@ -4,7 +4,7 @@
   ~ ////////File Name: strings.xml                                        ////////
   ~ ////////Class Name: strings.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+  ~ ////////Copyright update: 9/27/19 9:09 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -45,7 +45,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
+    <string name="table_header">Table Category Management</string>
     <string name="sync_header">Sync</string>
 
     <!-- Messages Preferences -->

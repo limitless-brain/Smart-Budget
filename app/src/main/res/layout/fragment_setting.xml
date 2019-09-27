@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////File Name: fragment_setting.xml                                        ////////
+  ~ ////////Class Name: fragment_setting.xml                                  ////////
+  ~ ////////Project Name: $file.projectName                           ////////
+  ~ ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+  ~ ////////Author: yazan                                                   ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/settingRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_medium"
+        android:text="Table Settings"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimaryDark" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:gravity="top|center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/settingManageCategoriesManage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:text="Manage Categories" />
+
+        <LinearLayout
+            android:id="@+id/settingManageCategoriesLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/settingManageCategoriesConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn_bg"
+                android:text="Done" />
+
+            <TextView
+                android:id="@+id/settingManageCategoriesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:fontFamily="@font/ubuntu_bold"
+                android:gravity="center_horizontal"
+                android:text="Manage Table Categories"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/settingManageCategoriesTabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabBackground="@drawable/table_tabs_bg"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabMode="fixed"
+                app:tabRippleColor="@color/colorPrimaryDark">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Living Expenses" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Saving" />
+            </com.google.android.material.tabs.TabLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/colorPrimaryDark" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="256dp">
+
+                <ListView
+                    android:id="@+id/settingManageCategoriesList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:animateLayoutChanges="true"
+                    android:background="@drawable/rounded_stroke"
+                    android:divider="@android:color/transparent"
+                    android:footerDividersEnabled="false"
+                    android:padding="8dp"
+                    android:scrollbars="none" />
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

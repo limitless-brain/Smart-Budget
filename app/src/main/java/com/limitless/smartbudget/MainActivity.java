@@ -4,7 +4,7 @@
  * ////////File Name: MainActivity.java                                        ////////
  * ////////Class Name: MainActivity                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -83,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                 case 3:
                     fragmentManager.beginTransaction().
-                            replace(R.id.fragment_layout, new SettingsFragment()).commit();
+                            replace(R.id.fragment_layout, new SettingsFragment(
+                                    getApplicationContext())).commit();
                     break;
                 case 2:
                     fragmentManager.beginTransaction().

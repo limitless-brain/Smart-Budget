@@ -4,7 +4,7 @@
  * ////////File Name: DatabaseManagement.java                                        ////////
  * ////////Class Name: DatabaseManagement                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -41,7 +41,7 @@ import com.limitless.smartbudget.db.model.LivingExpenses;
 
 @Database(entities = {FixedExpenses.class, Incomes.class, LivingExpenses.class, Category.class}
         , version = 1, exportSchema = false)
-@TypeConverters(com.limitless.smartbudget.TypeConverters.class)
+@TypeConverters(com.limitless.smartbudget.db.TypeConverters.class)
 public abstract class DatabaseManagement extends RoomDatabase {
     public abstract FixedExpensesDao fixedExpensesDao();
 

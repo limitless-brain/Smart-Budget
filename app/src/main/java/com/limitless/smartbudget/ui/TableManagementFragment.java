@@ -4,7 +4,7 @@
  * ////////File Name: TableManagementFragment.java                                        ////////
  * ////////Class Name: TableManagementFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -31,7 +31,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -126,11 +125,5 @@ public class TableManagementFragment extends ListFragment {
                         , fragment)
                 .commit();
         mOnTableManagementListener = fragment;
-    }
-
-    @Override
-    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        mViewModel.selectedItem = position;
     }
 }
