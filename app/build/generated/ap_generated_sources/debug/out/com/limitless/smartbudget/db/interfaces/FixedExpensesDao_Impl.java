@@ -4,7 +4,7 @@
  * ////////File Name: FixedExpensesDao_Impl.java                                        ////////
  * ////////Class Name: FixedExpensesDao_Impl                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -290,6 +290,32 @@ public final class FixedExpensesDao_Impl implements FixedExpensesDao {
         _tmpId = _cursor.getInt(_cursorIndexOfId);
         _item.setId(_tmpId);
         _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public Double getTotalExpenses() {
+    final String _sql = "SELECT SUM(value) FROM fixed_expenses";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final Double _result;
+      if(_cursor.moveToFirst()) {
+        final Double _tmp;
+        if (_cursor.isNull(0)) {
+          _tmp = null;
+        } else {
+          _tmp = _cursor.getDouble(0);
+        }
+        _result = _tmp;
+      } else {
+        _result = null;
       }
       return _result;
     } finally {

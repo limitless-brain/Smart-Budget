@@ -4,7 +4,7 @@
  * ////////File Name: build.gradle                                        ////////
  * ////////Class Name: build                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -25,19 +25,27 @@
  */
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
 
+ext.versionMajor = 1
+ext.versionMinor = 0
+ext.versionPatch = 0
+ext.versionClassifier = "Monie"
+ext.isSnapshot = false
+ext.minimumSdkVersion = 23
+ext.maximumSdkVersion = 29
+
 android {
-    compileSdkVersion 29
+    compileSdkVersion project.ext.maximumSdkVersion
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.limitless.smartbudget"
-        minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion project.ext.minimumSdkVersion
+        targetSdkVersion project.ext.maximumSdkVersion
+        versionCode generateVersionCode()
+        versionName generateVersionName()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -52,6 +60,22 @@ android {
     }
 }
 
+private Integer generateVersionCode() {
+    return ext.minimumSdkVersion * 10000000 + ext.versionMajor * 10000 + ext.versionMinor * 100 + ext.versionPatch
+}
+
+private String generateVersionName() {
+    String versionName = "${ext.versionMajor}.${ext.versionMinor}.${ext.versionPatch}"
+    if (ext.versionClassifier == null && ext.isSnapshot) {
+        ext.versionClassifier = "SNAPSHOT"
+    }
+
+    if (ext.versionClassifier != null) {
+        versionName += "-" + ext.versionClassifier
+    }
+    return versionName
+}
+
 dependencies {
     def room_version = "2.2.0-rc01"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -62,7 +86,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.preference:preference:1.1.0'
-    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
@@ -70,7 +94,20 @@ dependencies {
     implementation 'com.etebarian:meow-bottom-navigation:1.0.4'
     implementation 'com.github.badoualy:datepicker-timeline:1.0.1'
     implementation 'com.github.adroitandroid:ChipCloud:2.2.1'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //  Chart library
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //  Color Picker Library
+    implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
 
+
+
+    //  Firebase
+    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+    implementation 'com.google.firebase:firebase-core:16.0.6'
+
+    //  Facebook
+    implementation 'com.facebook.android:facebook-android-sdk:5.5.1'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

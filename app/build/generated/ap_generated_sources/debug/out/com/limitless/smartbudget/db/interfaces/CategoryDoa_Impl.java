@@ -4,7 +4,7 @@
  * ////////File Name: CategoryDoa_Impl.java                                        ////////
  * ////////Class Name: CategoryDoa_Impl                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -67,7 +67,7 @@ public final class CategoryDoa_Impl implements CategoryDoa {
         } else {
           stmt.bindString(2, value.getName());
         }
-        stmt.bindLong(3, value.getIconRes());
+        stmt.bindLong(3, value.getColor());
       }
     };
     this.__deletionAdapterOfCategory = new EntityDeletionOrUpdateAdapter<Category>(__db) {
@@ -95,7 +95,7 @@ public final class CategoryDoa_Impl implements CategoryDoa {
         } else {
           stmt.bindString(2, value.getName());
         }
-        stmt.bindLong(3, value.getIconRes());
+        stmt.bindLong(3, value.getColor());
         stmt.bindLong(4, value.getId());
       }
     };
@@ -146,15 +146,15 @@ public final class CategoryDoa_Impl implements CategoryDoa {
     try {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final List<Category> _result = new ArrayList<Category>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final Category _item;
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _item = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _item = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId);
         _item.setId(_tmpId);
@@ -178,14 +178,14 @@ public final class CategoryDoa_Impl implements CategoryDoa {
     try {
       final int _cursorIndexOfId = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final Category _result;
       if(_cursor.moveToFirst()) {
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _result = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _result = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId);
         _result.setId(_tmpId);

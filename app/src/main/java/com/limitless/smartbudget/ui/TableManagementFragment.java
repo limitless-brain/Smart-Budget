@@ -4,7 +4,7 @@
  * ////////File Name: TableManagementFragment.java                                        ////////
  * ////////Class Name: TableManagementFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -44,11 +44,9 @@ import com.limitless.smartbudget.interfaces.OnTableManagementListener;
 import com.limitless.smartbudget.ui.table.TableEditFragment;
 import com.limitless.smartbudget.utils.Constants;
 
-import java.util.ArrayList;
-
 public class TableManagementFragment extends ListFragment {
 
-    private TableManagementViewModel mViewModel;
+    private AppViewModel mViewModel;
     private FragmentManager fragmentManager;
     private TabLayout mTabLayout;
 
@@ -63,7 +61,7 @@ public class TableManagementFragment extends ListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(TableManagementViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
     }
 
     @Override
@@ -77,10 +75,6 @@ public class TableManagementFragment extends ListFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()) {
-                    case 3:/*
-                        //  Saving
-                        mOnTableManagementListener.onTargetTableChanged(Constants.SAVING);*/
-                        break;
                     case 2:
                         //  Incomes
                         mOnTableManagementListener.onTargetTableChanged(Constants.INCOMES);
@@ -106,13 +100,6 @@ public class TableManagementFragment extends ListFragment {
 
             }
         });
-
-        //  List view
-        mRecentDataAdapter = new ArrayAdapter<String>(getContext(),
-                android.R.layout.simple_list_item_1,
-                new ArrayList<String>());
-        mRecentDataAdapter.setNotifyOnChange(true);
-        setListAdapter(mRecentDataAdapter);
         return view;
     }
 

@@ -4,7 +4,7 @@
  * ////////File Name: LivingExpensesDoa_Impl.java                                        ////////
  * ////////Class Name: LivingExpensesDoa_Impl                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -92,7 +92,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
           } else {
             stmt.bindString(6, _tmpCategory.getName());
           }
-          stmt.bindLong(7, _tmpCategory.getIconRes());
+          stmt.bindLong(7, _tmpCategory.getColor());
         } else {
           stmt.bindNull(5);
           stmt.bindNull(6);
@@ -145,7 +145,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
           } else {
             stmt.bindString(6, _tmpCategory.getName());
           }
-          stmt.bindLong(7, _tmpCategory.getIconRes());
+          stmt.bindLong(7, _tmpCategory.getColor());
         } else {
           stmt.bindNull(5);
           stmt.bindNull(6);
@@ -205,7 +205,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
       final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
       final int _cursorIndexOfId_1 = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final List<LivingExpenses> _result = new ArrayList<LivingExpenses>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final LivingExpenses _item;
@@ -224,9 +224,9 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
         final Category _tmpCategory;
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _tmpCategory = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _tmpCategory = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId_1);
         _tmpCategory.setId(_tmpId);
@@ -258,7 +258,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
       final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
       final int _cursorIndexOfId_1 = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final List<LivingExpenses> _result = new ArrayList<LivingExpenses>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final LivingExpenses _item;
@@ -277,9 +277,9 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
         final Category _tmpCategory;
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _tmpCategory = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _tmpCategory = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId_1);
         _tmpCategory.setId(_tmpId);
@@ -321,7 +321,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
       final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
       final int _cursorIndexOfId_1 = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final List<LivingExpenses> _result = new ArrayList<LivingExpenses>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final LivingExpenses _item;
@@ -340,9 +340,9 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
         final Category _tmpCategory;
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _tmpCategory = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _tmpCategory = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId_1);
         _tmpCategory.setId(_tmpId);
@@ -387,7 +387,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
       final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
       final int _cursorIndexOfId_1 = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final List<LivingExpenses> _result = new ArrayList<LivingExpenses>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final LivingExpenses _item;
@@ -406,9 +406,9 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
         final Category _tmpCategory;
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _tmpCategory = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _tmpCategory = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId_1);
         _tmpCategory.setId(_tmpId);
@@ -444,7 +444,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
       final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
       final int _cursorIndexOfId_1 = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final List<LivingExpenses> _result = new ArrayList<LivingExpenses>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final LivingExpenses _item;
@@ -463,9 +463,9 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
         final Category _tmpCategory;
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _tmpCategory = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _tmpCategory = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId_1);
         _tmpCategory.setId(_tmpId);
@@ -474,6 +474,32 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
         _tmpId_1 = _cursor.getInt(_cursorIndexOfId);
         _item.setId(_tmpId_1);
         _result.add(_item);
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public Double getTotalExpenses() {
+    final String _sql = "SELECT SUM(value) FROM living_expenses";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 0);
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final Double _result;
+      if(_cursor.moveToFirst()) {
+        final Double _tmp;
+        if (_cursor.isNull(0)) {
+          _tmp = null;
+        } else {
+          _tmp = _cursor.getDouble(0);
+        }
+        _result = _tmp;
+      } else {
+        _result = null;
       }
       return _result;
     } finally {
@@ -521,11 +547,53 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
   }
 
   @Override
-  public Double getTotalExpensesForCategory(final int category) {
-    final String _sql = "SELECT SUM(value) FROM living_expenses WHERE c_id = ?";
+  public Double getTotalExpensesForCategory(final String category) {
+    final String _sql = "SELECT SUM(value) FROM living_expenses WHERE c_name = ?";
     final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 1);
     int _argIndex = 1;
-    _statement.bindLong(_argIndex, category);
+    if (category == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, category);
+    }
+    __db.assertNotSuspendingTransaction();
+    final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
+    try {
+      final Double _result;
+      if(_cursor.moveToFirst()) {
+        final Double _tmp;
+        if (_cursor.isNull(0)) {
+          _tmp = null;
+        } else {
+          _tmp = _cursor.getDouble(0);
+        }
+        _result = _tmp;
+      } else {
+        _result = null;
+      }
+      return _result;
+    } finally {
+      _cursor.close();
+      _statement.release();
+    }
+  }
+
+  @Override
+  public Double getTotalExpensesForCategory(final String category, final Long date) {
+    final String _sql = "SELECT SUM(value) FROM living_expenses WHERE c_name = ? AND date = ?";
+    final RoomSQLiteQuery _statement = RoomSQLiteQuery.acquire(_sql, 2);
+    int _argIndex = 1;
+    if (category == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindString(_argIndex, category);
+    }
+    _argIndex = 2;
+    if (date == null) {
+      _statement.bindNull(_argIndex);
+    } else {
+      _statement.bindLong(_argIndex, date);
+    }
     __db.assertNotSuspendingTransaction();
     final Cursor _cursor = DBUtil.query(__db, _statement, false, null);
     try {
@@ -595,7 +663,7 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
       final int _cursorIndexOfDescription = CursorUtil.getColumnIndexOrThrow(_cursor, "description");
       final int _cursorIndexOfId_1 = CursorUtil.getColumnIndexOrThrow(_cursor, "c_id");
       final int _cursorIndexOfName = CursorUtil.getColumnIndexOrThrow(_cursor, "c_name");
-      final int _cursorIndexOfIconRes = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
+      final int _cursorIndexOfColor = CursorUtil.getColumnIndexOrThrow(_cursor, "c_icon");
       final LivingExpenses _result;
       if(_cursor.moveToFirst()) {
         final Date _tmpDate;
@@ -613,9 +681,9 @@ public final class LivingExpensesDoa_Impl implements LivingExpensesDoa {
         final Category _tmpCategory;
         final String _tmpName;
         _tmpName = _cursor.getString(_cursorIndexOfName);
-        final int _tmpIconRes;
-        _tmpIconRes = _cursor.getInt(_cursorIndexOfIconRes);
-        _tmpCategory = new Category(_tmpName,_tmpIconRes);
+        final int _tmpColor;
+        _tmpColor = _cursor.getInt(_cursorIndexOfColor);
+        _tmpCategory = new Category(_tmpName,_tmpColor);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId_1);
         _tmpCategory.setId(_tmpId);

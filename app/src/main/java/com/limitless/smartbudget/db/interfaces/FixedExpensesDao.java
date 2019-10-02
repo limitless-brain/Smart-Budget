@@ -4,7 +4,7 @@
  * ////////File Name: FixedExpensesDao.java                                        ////////
  * ////////Class Name: FixedExpensesDao                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -56,6 +56,9 @@ public interface FixedExpensesDao {
 
     @Query("SELECT * FROM fixed_expenses WHERE description = :des")
     List<FixedExpenses> getRecordsByDescription(String des);
+
+    @Query("SELECT SUM(value) FROM fixed_expenses")
+    Double getTotalExpenses();
 
     @Query("SELECT SUM(value) FROM fixed_expenses WHERE date BETWEEN :d1 AND :d2")
     Double getTotalPaidBetween(Long d1, Long d2);

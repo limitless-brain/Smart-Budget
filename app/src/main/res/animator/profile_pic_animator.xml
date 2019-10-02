@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////File Name: profile_pic_animator.xml                                        ////////
+  ~ ////////Class Name: profile_pic_animator.xml                                  ////////
+  ~ ////////Project Name: $file.projectName                           ////////
+  ~ ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+  ~ ////////Author: yazan                                                   ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <set android:ordering="together">
+            <objectAnimator
+                android:duration="1000"
+                android:interpolator="@android:anim/accelerate_interpolator"
+                android:propertyName="translationY"
+                android:repeatCount="infinite"
+                android:repeatMode="reverse"
+                android:valueFrom="-10dp"
+                android:valueTo="10dp"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="500"
+                android:interpolator="@android:anim/accelerate_interpolator"
+                android:propertyName="scaleY"
+                android:repeatCount="infinite"
+                android:repeatMode="reverse"
+                android:valueFrom="1.0"
+                android:valueTo="1.025"
+                android:valueType="floatType" />
+            <objectAnimator
+                android:duration="2000"
+                android:interpolator="@android:anim/accelerate_interpolator"
+                android:propertyName="scaleX"
+                android:repeatCount="infinite"
+                android:repeatMode="reverse"
+                android:valueFrom="1.0"
+                android:valueTo="1.025"
+                android:valueType="floatType" />
+        </set>
+    </item>
+
+</selector>

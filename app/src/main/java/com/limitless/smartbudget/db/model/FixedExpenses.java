@@ -4,7 +4,7 @@
  * ////////File Name: FixedExpenses.java                                        ////////
  * ////////Class Name: FixedExpenses                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -33,7 +33,10 @@ import androidx.room.Entity;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.limitless.smartbudget.utils.Constants;
+
 import java.util.Date;
+import java.util.Locale;
 
 @Entity(tableName = "fixed_expenses", indices = @Index(value = "id", unique = true))
 public class FixedExpenses {
@@ -89,7 +92,9 @@ public class FixedExpenses {
     @NonNull
     @Override
     public String toString() {
-        return getId() + ';' + getDate().toString() + ";" + getValue() + ";" + getDescription();
+        return Constants.dateToString(getDate(), Constants.DATE_PATTERN, Locale.US)
+                + ';' + getValue() + ';'
+                + getDescription() + ';';
     }
 
     @Override

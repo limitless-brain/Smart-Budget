@@ -4,7 +4,7 @@
  * ////////File Name: Category.java                                        ////////
  * ////////Class Name: Category                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -46,11 +46,11 @@ public class Category {
     private String name;
 
     @ColumnInfo(name = "c_icon")
-    private int iconRes;
+    private int color;
 
-    public Category(String name, int iconRes) {
+    public Category(String name, int color) {
         this.name = name;
-        this.iconRes = iconRes;
+        this.color = color;
         id = new Random(Calendar.getInstance().getTimeInMillis()).nextInt();
     }
 
@@ -70,12 +70,12 @@ public class Category {
         this.name = name;
     }
 
-    public int getIconRes() {
-        return iconRes;
+    public int getColor() {
+        return color;
     }
 
-    public void setIconRes(int iconRes) {
-        this.iconRes = iconRes;
+    public void setColor(int color) {
+        this.color = color;
     }
 
     @NonNull
@@ -88,6 +88,6 @@ public class Category {
     public boolean equals(@Nullable Object obj) {
         if (!(obj instanceof Category))
             return false;
-        return this.name.equals(((Category) obj).name);
+        return this.name.equals(((Category) obj).name + ';');
     }
 }

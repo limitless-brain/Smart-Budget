@@ -4,7 +4,7 @@
  * ////////File Name: LivingExpensesDoa.java                                        ////////
  * ////////Class Name: LivingExpensesDoa                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -64,11 +64,19 @@ public interface LivingExpensesDoa {
     @Query("SELECT * FROM living_expenses WHERE description LIKE :description")
     List<LivingExpenses> getRecordsByDescription(String description);
 
+    @Query("SELECT SUM(value) FROM living_expenses")
+    Double getTotalExpenses();
+
     @Query("SELECT SUM(value) FROM living_expenses WHERE date BETWEEN :d1 AND :d2")
     Double getTotalExpensesBetween(Long d1, Long d2);
 
-    @Query("SELECT SUM(value) FROM living_expenses WHERE c_id = :category")
-    Double getTotalExpensesForCategory(int category);
+    @Query("SELECT SUM(value) FROM living_expenses WHERE c_name = :category")
+    Double getTotalExpensesForCategory(String category);
+
+
+    @Query("SELECT SUM(value) FROM living_expenses " +
+            "WHERE c_name = :category AND date = :date")
+    Double getTotalExpensesForCategory(String category, Long date);
 
     @Query("SELECT SUM(value) FROM living_expenses WHERE description LIKE :description ")
     Double getTotalExpensesForDescription(String description);

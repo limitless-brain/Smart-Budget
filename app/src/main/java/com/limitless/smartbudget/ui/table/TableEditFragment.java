@@ -4,7 +4,7 @@
  * ////////File Name: TableEditFragment.java                                        ////////
  * ////////Class Name: TableEditFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -31,12 +31,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,13 +41,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
 import com.adroitandroid.chipcloud.ChipCloud;
 import com.adroitandroid.chipcloud.ChipListener;
 import com.github.badoualy.datepicker.DatePickerTimeline;
-import com.github.badoualy.datepicker.MonthView;
 import com.limitless.smartbudget.ControlPanel;
 import com.limitless.smartbudget.R;
 import com.limitless.smartbudget.db.model.Category;
@@ -73,8 +70,23 @@ import java.util.Locale;
 import java.util.Objects;
 
 /**
- * A simple {@link Fragment} subclass.
- * create an instance of this fragment.
+ * Date change listener : {@linkplain TableEditFragment#onDateSelected(int, int, int, int)}
+ * Table tab changed listener : {@linkplain TableEditFragment#onTargetTableChanged(int)}
+ * Initialize User Interface : {@linkplain TableEditFragment#initUi(View)}
+ * Show/Hide UI elements : {@linkplain TableEditFragment#handleUIVisibility(int)} )}
+ * Show all UI elements : {@linkplain TableEditFragment#setAllUIVisible()}
+ * Reset UI data : {@linkplain TableEditFragment#resetUI(int)}
+ * Setup date picker : {@linkplain TableEditFragment#setupDatePicker(int, int, int)}
+ * Set UI listeners : {@linkplain TableEditFragment#setUiListeners()}
+ * Enable/disable Confirm button : {@linkplain TableEditFragment#checkRecordAvailability()}
+ * Change UI on Click update record : {@linkplain TableEditFragment#updateUiForUpdateRecord(int)}
+ * Update record list : {@linkplain TableEditFragment#updateRecordList(int)}
+ * Call update table methods : {@linkplain TableEditFragment#updateTargetTable(int)}
+ * Get tables data from database : {@linkplain TableEditFragment#getTables()}
+ * Add/Update data from database : {@linkplain TableEditFragment#interactWithTable(int, boolean)}
+ * Delete data from database : {@linkplain TableEditFragment#deleteRecord(int)}
+ * Get selected category : {@linkplain TableEditFragment#getCategoryObject(String)}
+ * Fill cloud chip view : {@linkplain TableEditFragment#fillCategoryChips()}
  */
 public class TableEditFragment extends Fragment implements OnTableManagementListener,
         DatePickerTimeline.OnDateSelectedListener {
@@ -86,7 +98,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     private boolean addNew = true;
     private String mDateString;
     private String selectedCategory;
-    private ArrayAdapter mArrayAdapter;
+    private ArrayAdapter<String> mArrayAdapter;
 
     //  UI elements
     private TextView mDateTitleTextView;
@@ -112,6 +124,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
 
     //  Database
     private ControlPanel controlPanel;
+    private ChipListener mChipListener;
 
     public TableEditFragment() {
         // Required empty public constructor
@@ -120,7 +133,37 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     public TableEditFragment(ListView listView, Context context) {
         mContext = context;
         mListView = listView;
-        mArrayAdapter = (ArrayAdapter) listView.getAdapter();
+        mArrayAdapter = new ArrayAdapter<String>(mContext,
+                R.layout.fragment_table_management_list_item
+                , R.id.tableDataItem1,
+                new ArrayList<>()) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View root = super.getView(position, convertView, parent);
+
+                TextView item1 = root.findViewById(R.id.tableDataItem1);
+                TextView item2 = root.findViewById(R.id.tableDataItem2);
+                TextView item3 = root.findViewById(R.id.tableDataItem3);
+                String[] dateString = Objects.requireNonNull(getItem(position)).split("[;]");
+                if (mTable == Constants.LIVING_EXPENSES) {
+                    item1.setText(dateString[1]);
+                    item1.setTextColor(((LivingExpenses) mLivingExpensesList.get(position))
+                            .getCategory().getColor());
+                    item2.setText(dateString[2]);
+                    if (dateString.length > 3)
+                        item3.setText(dateString[3]);
+                    else
+                        item3.setText("No Description");
+                } else {
+                    item1.setText(dateString[0]);
+                    item2.setText(dateString[1]);
+                    item3.setText(dateString[2]);
+                }
+                return root;
+            }
+        };
+        mListView.setAdapter(mArrayAdapter);
         controlPanel = ControlPanel.getInstance(mContext);
         getTables();
     }
@@ -144,7 +187,6 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     ///////////////////////////////////////////////////////////////////////////
     // Handling implemented interfaces methods override
     ///////////////////////////////////////////////////////////////////////////
-
 
     /**
      * Handling date picker onDateSelect interface method
@@ -292,16 +334,45 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
 
         //  Category chips
         if (table == Constants.LIVING_EXPENSES) {
-            mCategoryChipCloud.removeAllViews();
-            for (int i = 0; i < mCategoryList.size(); i++) {
-                mCategoryChipCloud.addChip(((Category) mCategoryList.get(i)).getName());
-            }
+            fillCategoryChips();
         }
         //  Handling UI listeners
         setUiListeners();
 
         //  Check if record filled
         checkRecordAvailability();
+    }
+
+    /**
+     * Fill Cloud chip view with category
+     */
+    private void fillCategoryChips() {
+        mCategoryChipCloud.removeAllViews();
+        if (mCategoryList != null) {
+            for (int i = 0; i < mCategoryList.size(); i++) {
+                mCategoryChipCloud.addChip(((Category) mCategoryList.get(i)).getName());
+                TextView child = ((TextView) mCategoryChipCloud.getChildAt(i));
+                child.setTextColor(((Category) mCategoryList.get(i)).getColor());
+                child.setBackground(getResources().getDrawable(
+                        R.drawable.rounded_stroke, null));
+                child.setPadding(16, 0, 16, 0);
+            }
+        }
+    }
+
+    private void showOneCategoryChip(String category) {
+        Category categoryObject = getCategoryObject(category);
+        mCategoryChipCloud.removeAllViews();
+        mCategoryChipCloud.addChip(selectedCategory);
+        mCategoryChipCloud.setChipListener(null);
+        mCategoryChipCloud.setSelectedChip(0);
+        mCategoryChipCloud.setChipListener(mChipListener);
+        TextView child = ((TextView) mCategoryChipCloud.getChildAt(0));
+        child.setTextColor(
+                Objects.requireNonNull(categoryObject).getColor());
+        child.setBackground(
+                getResources().getDrawable(R.drawable.rounded_stroke, null));
+        child.setPadding(16, 0, 16, 0);
     }
 
     /**
@@ -316,20 +387,12 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         mDatePickerTimeline.setFirstVisibleDate(year, month - 1, 1);
         mDatePickerTimeline.setLastVisibleDate(year, month + 1, 1);
         mDatePickerTimeline.setFollowScroll(true);
-        mDatePickerTimeline.setDateLabelAdapter(new MonthView.DateLabelAdapter() {
-            @Override
-            public CharSequence getLabel(Calendar calendar, int index) {
-                DateFormat format = new SimpleDateFormat("MMM", Locale.US);
-                return format.format(calendar.getTime());
-            }
+        mDatePickerTimeline.setDateLabelAdapter((calendar, index) -> {
+            DateFormat format = new SimpleDateFormat("MMM", Locale.US);
+            return format.format(calendar.getTime());
         });
         mDatePickerTimeline.setSelectedDate(year, month, day);
-        mDatePickerTimeline.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mDatePickerTimeline.setVisibility(View.GONE);
-            }
-        }, 50);
+        mDatePickerTimeline.postDelayed(() -> mDatePickerTimeline.setVisibility(View.GONE), 50);
     }
 
     /**
@@ -339,47 +402,41 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     private void setUiListeners() {
 
         //  Categories chip list
-        mCategoryChipCloud.setChipListener(new ChipListener() {
+        mChipListener = new ChipListener() {
             @Override
             public void chipSelected(int index) {
-                if (mCategoryChipCloud.getChildCount() < 2)
-                    return;
-                mCategoryChipCloud.removeAllViews();
                 selectedCategory = ((Category) mCategoryList.get(index)).getName();
-                mCategoryChipCloud.addChip(selectedCategory);
-                mCategoryChipCloud.setSelectedChip(0);
+                mValueEditText.requestFocus();
+                showOneCategoryChip(selectedCategory);
                 checkRecordAvailability();
             }
 
             @Override
             public void chipDeselected(int index) {
-                mCategoryChipCloud.removeAllViews();
                 selectedCategory = null;
-                for (Object category : mCategoryList)
-                    mCategoryChipCloud.addChip(((Category) category).getName());
+                if (mCategoryChipCloud.getChildCount() < 2)
+                    fillCategoryChips();
                 checkRecordAvailability();
             }
-        });
+        };
+        mCategoryChipCloud.setChipListener(mChipListener);
 
         //  Calender for handling date
         Calendar calendar = Calendar.getInstance();
         //  Date edit text touch listener
-        mDateEditText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                try {
-                    Date d = Constants.dateFromString(mDateString, Constants.DATE_PATTERN, Locale.US);
-                    calendar.setTime(d);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                mDatePickerTimeline.setVisibility(View.VISIBLE);
-                mDatePickerTimeline.setSelectedDate(calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-                mDatePickerTimeline.centerOnSelection();
-                mDateEditText.setVisibility(View.GONE);
-                return false;
+        mDateEditText.setOnTouchListener((view, motionEvent) -> {
+            try {
+                Date d = Constants.dateFromString(mDateString, Constants.DATE_PATTERN, Locale.US);
+                calendar.setTime(d);
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+            mDatePickerTimeline.setVisibility(View.VISIBLE);
+            mDatePickerTimeline.setSelectedDate(calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            mDatePickerTimeline.centerOnSelection();
+            mDateEditText.setVisibility(View.GONE);
+            return false;
         });
         //  Value edit text watcher
         mValueEditText.addTextChangedListener(new TextWatcher() {
@@ -433,31 +490,25 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         });
 
         //  Long press list item listener
-        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                selectedItem = i;
-                PopupMenu menu = new PopupMenu(mContext, view);
-                menu.inflate(R.menu.list_item_menu);
-                menu.show();
-                menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.delete:
-                                addNew = true;
-                                deleteRecord(mTable);
-                                break;
-                            case R.id.update:
-                                addNew = false;
-                                updateUiForUpdateRecord(mTable);
-                                break;
-                        }
-                        return false;
-                    }
-                });
+        mListView.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            selectedItem = i;
+            PopupMenu menu = new PopupMenu(mContext, view);
+            menu.inflate(R.menu.list_item_menu);
+            menu.show();
+            menu.setOnMenuItemClickListener(item -> {
+                switch (item.getItemId()) {
+                    case R.id.delete:
+                        addNew = true;
+                        deleteRecord(mTable);
+                        break;
+                    case R.id.update:
+                        addNew = false;
+                        updateUiForUpdateRecord(mTable);
+                        break;
+                }
                 return false;
-            }
+            });
+            return false;
         });
     }
 
@@ -468,7 +519,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         boolean isEnabled = false;
         switch (mTable) {
             case Constants.LIVING_EXPENSES:
-                isEnabled = mCategoryChipCloud.getChildCount() == 1 &&
+                isEnabled = selectedCategory != null &&
                         !mValueEditText.getText().toString().isEmpty() &&
                         Double.parseDouble(mValueEditText.getText().toString()) > 0;
                 break;
@@ -488,7 +539,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     /**
      * Update ui for target table
      *
-     * @param table
+     * @param table target table
      */
     private void updateUiForUpdateRecord(int table) {
         if (mDatePickerTimeline.getVisibility() == View.VISIBLE && table != Constants.SAVING)
@@ -502,11 +553,9 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 String date = Constants.dateToString(record.getDate(), Constants.DATE_PATTERN, Locale.US);
                 mDateString = date;
                 mDateEditText.setText(date);
-                mCategoryChipCloud.removeAllViews();
-                selectedCategory = record.getCategory().getName();
-                mCategoryChipCloud.addChip(selectedCategory);
-                mCategoryChipCloud.setSelectedChip(0);
                 mValueEditText.setText(record.getValue());
+                selectedCategory = record.getCategory().getName();
+                showOneCategoryChip(selectedCategory);
                 mDescriptionEditText.setText(record.getDescription());
                 break;
             case Constants.FIXED_EXPENSES:
@@ -531,9 +580,23 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     }
 
     /**
+     * Get selected category object
+     *
+     * @return Category instance
+     */
+    @Nullable
+    private Category getCategoryObject(String categoryName) {
+        for (Object o : mCategoryList) {
+            if (((Category) o).getName().equals(categoryName))
+                return (Category) o;
+        }
+        return null;
+    }
+
+    /**
      * update listView inside TableManagement fragment to target table
      *
-     * @param table
+     * @param table target table
      */
     private void updateRecordList(int table) {
         ArrayList<String> data = new ArrayList<>();
@@ -541,7 +604,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
             case Constants.LIVING_EXPENSES:
                 for (Object o : mLivingExpensesList) {
                     LivingExpenses livingExpenses = (LivingExpenses) o;
-                    data.add(Objects.requireNonNull(livingExpenses.toString()));
+                    data.add(livingExpenses.toString());
                 }
                 break;
             case Constants.FIXED_EXPENSES:
@@ -563,7 +626,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
     /**
      * Call table and ui updating methods
      *
-     * @param table
+     * @param table target table
      */
     private void updateTargetTable(int table) {
         updateRecordList(table);
@@ -580,10 +643,22 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
      * Get all tables data
      */
     private void getTables() {
-        mLivingExpensesList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.LIVING_EXPENSES);
-        mFixedExpensesList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.FIXED_EXPENSES);
-        mIncomesList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.INCOMES);
-        mCategoryList = (List) ControlPanel.getInstance(mContext).getAllRecords(Constants.CATEGORIES);
+        Calendar calendar = Calendar.getInstance();
+        Date today = calendar.getTime();
+        String date = Constants.dateToString(today, Constants.DATE_PATTERN, Locale.US);
+        try {
+            today = Constants.dateFromString(date, Constants.DATE_PATTERN, Locale.US);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        mLivingExpensesList = (List) ControlPanel.getInstance(mContext)
+                .getRecordsByDay(Constants.LIVING_EXPENSES, today.getTime());
+        mFixedExpensesList = (List) ControlPanel.getInstance(mContext)
+                .getRecordsByDay(Constants.FIXED_EXPENSES, today.getTime());
+        mIncomesList = (List) ControlPanel.getInstance(mContext)
+                .getRecordsByDay(Constants.INCOMES, today.getTime());
+        mCategoryList = (List) ControlPanel
+                .getInstance(mContext).getAllRecords(Constants.CATEGORIES);
     }
 
     /**
@@ -645,7 +720,6 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 }
                 break;
         }
-        addNew = true;
         selectedItem = -1;
         getTables();
         updateRecordList(table);

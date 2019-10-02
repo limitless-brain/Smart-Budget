@@ -4,7 +4,7 @@
  * ////////File Name: IncomesDao.java                                        ////////
  * ////////Class Name: IncomesDao                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -57,6 +57,9 @@ public interface IncomesDao {
 
     @Query("SELECT * FROM incomes WHERE description = :des")
     List<Incomes> getRecordsByDescription(String des);
+
+    @Query("SELECT SUM(value) FROM incomes")
+    Double getTotalIncomes();
 
     @Query("SELECT SUM(value) FROM incomes WHERE date BETWEEN :d1 AND :d2")
     Double getTotalIncomesBetween(Long d1, Long d2);

@@ -4,7 +4,7 @@
  * ////////File Name: LivingExpenses.java                                        ////////
  * ////////Class Name: LivingExpenses                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -33,7 +33,10 @@ import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.limitless.smartbudget.utils.Constants;
+
 import java.util.Date;
+import java.util.Locale;
 
 @Entity(tableName = "living_expenses")
 public class LivingExpenses {
@@ -104,8 +107,10 @@ public class LivingExpenses {
     @NonNull
     @Override
     public String toString() {
-        return getId() + ';' + getDate().toString() + ';' + getCategory().toString()
-                + ';' + getValue() + ';' + getDescription();
+        return Constants.dateToString(getDate(), Constants.DATE_PATTERN, Locale.US)
+                + ';' + getCategory().toString()
+                + ';' + getValue()
+                + ';' + getDescription() + ';';
     }
 
     @Override

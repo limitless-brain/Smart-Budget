@@ -4,7 +4,7 @@
  * ////////File Name: ControlPanel.java                                        ////////
  * ////////Class Name: ControlPanel                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+ * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -27,6 +27,7 @@
 package com.limitless.smartbudget;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
@@ -70,9 +71,9 @@ public class ControlPanel implements OnControlPanelListener {
         if (categories.isEmpty()) {
             //  Create default category
             // TODO: 9/22/2019 Add them to resources
-            databaseManagement.categoryDoa().insert(new Category("Food", 0));
-            databaseManagement.categoryDoa().insert(new Category("Transportation", 1));
-            databaseManagement.categoryDoa().insert(new Category("Petty Cash", 2));
+            databaseManagement.categoryDoa().insert(new Category("Food", Color.MAGENTA));
+            databaseManagement.categoryDoa().insert(new Category("Transportation", Color.YELLOW));
+            databaseManagement.categoryDoa().insert(new Category("Petty Cash", Color.GREEN));
         } else {
             //  Created no need to do anything
         }
@@ -97,6 +98,26 @@ public class ControlPanel implements OnControlPanelListener {
             case Constants.CATEGORIES:
                 object = (databaseManagement.categoryDoa().getAllCategories());
                 break;
+        }
+        return object;
+    }
+
+    @Override
+    public Object getRecordsByDay(int table, long d1) {
+
+        Object object;
+        switch (table) {
+            case Constants.LIVING_EXPENSES:
+                object = (databaseManagement.livingExpensesDoa().getRecordsBetween(d1, d1));
+                break;
+            case Constants.FIXED_EXPENSES:
+                object = (databaseManagement.fixedExpensesDao().getRecordsBetween(d1, d1));
+                break;
+            case Constants.INCOMES:
+                object = (databaseManagement.incomesDao().getRecordsBetween(d1, d1));
+                break;
+            default:
+                return null;
         }
         return object;
     }
@@ -185,5 +206,38 @@ public class ControlPanel implements OnControlPanelListener {
                 break;
         }
         return record;
+    }
+
+    @Override
+    public Double getTotalValue(int table) {
+        Double Result = 0d;
+        switch (table) {
+            case Constants.LIVING_EXPENSES:
+                Result = databaseManagement.livingExpensesDoa().getTotalExpenses();
+                break;
+            case Constants.FIXED_EXPENSES:
+                Result = databaseManagement.fixedExpensesDao().getTotalExpenses();
+                break;
+            case Constants.INCOMES:
+                Result = databaseManagement.incomesDao().getTotalIncomes();
+                break;
+        }
+        if (Result == null)
+            return 0d;
+        return Result;
+    }
+
+    @Override
+    public Double getTotalValue(int table, long date, Category category) {
+        Double result = 0d;
+        switch (table) {
+            case Constants.LIVING_EXPENSES:
+                result = databaseManagement.livingExpensesDoa()
+                        .getTotalExpensesForCategory(category.getName(), date);
+                break;
+            case Constants.SAVING:
+                break;
+        }
+        return result == null ? 0d : result;
     }
 }

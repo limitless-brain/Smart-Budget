@@ -4,7 +4,7 @@
   ~ ////////File Name: fragment_table_management.xml                                        ////////
   ~ ////////Class Name: fragment_table_management.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 9/27/19 9:09 PM                                       ////////
+  ~ ////////Copyright update: 10/2/19 4:31 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -24,11 +24,11 @@
   ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/colorPrimary">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/TMTabLayout"
@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         app:tabBackground="@drawable/table_tabs_bg"
         app:tabIndicatorColor="@color/colorPrimary"
-        app:tabRippleColor="@color/colorPrimaryDark"
         app:tabMode="fixed"
+        app:tabRippleColor="@color/colorPrimaryDark"
         app:tabTextAppearance="@style/TabTextFont">
 
         <com.google.android.material.tabs.TabItem
@@ -57,36 +57,72 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-
     <ScrollView
-        android:id="@+id/TableManagementFragmentLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0.4"
-        android:scrollbars="none" />
+        android:layout_height="wrap_content"
+        android:layout_below="@id/TMTabLayout">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:layout_weight="0.6"
-        android:padding="16dp"
-        app:cardCornerRadius="5dp">
-
-        <ListView
-            android:id="@android:id/list"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="@font/ubuntu_bold"
-            android:text="No Data"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="18sp" />
-    </androidx.cardview.widget.CardView>
+            <FrameLayout
+                android:id="@+id/TableManagementFragmentLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-</LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/list_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TableManagementFragmentLayout"
+                android:layout_margin="16dp"
+                android:minHeight="128dp"
+                android:padding="16dp"
+                app:cardCornerRadius="5dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/listTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:text="Today Records"
+                        android:textColor="@android:color/secondary_text_light"
+                        android:textSize="18sp" />
+
+                    <ListView
+                        android:id="@android:id/list"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_below="@id/listTitle"
+                        android:layout_alignParentBottom="true"
+                        android:layout_margin="8dp"
+                        android:clipChildren="false"
+                        android:clipToPadding="false"
+                        android:nestedScrollingEnabled="true"
+                        android:padding="8dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@android:id/empty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:text="No Records been added"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textSize="18sp" />
+            </androidx.cardview.widget.CardView>
+
+            <!--Spacer to be above bottom bar-->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_below="@id/list_card" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
