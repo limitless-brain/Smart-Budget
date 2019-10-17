@@ -1,10 +1,10 @@
 /*
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
- * ////////File Name: AppViewModel.java                                        ////////
- * ////////Class Name: AppViewModel                                  ////////
+ * ////////File Name: AssistantRemoteReceiver.java                                        ////////
+ * ////////Class Name: AssistantRemoteReceiver                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -24,20 +24,18 @@
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  */
 
-package com.limitless.smartbudget.ui;
+package com.limitless.smartbudget.assistant;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 
-import androidx.lifecycle.ViewModel;
+public class AssistantRemoteReceiver extends BroadcastReceiver {
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-public class AppViewModel extends ViewModel {
-
-    //  User profile state
-    public boolean isSignIn = false;
-    public FirebaseAuth firebaseAuth;
-    public FirebaseUser firebaseUser = null;
-    public Intent signInIntent = null;
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        // TODO: This method is called when the BroadcastReceiver is receiving
+        // an Intent broadcast.
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
 }

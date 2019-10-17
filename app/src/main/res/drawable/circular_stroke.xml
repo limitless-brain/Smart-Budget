@@ -4,7 +4,7 @@
   ~ ////////File Name: circular_stroke.xml                                        ////////
   ~ ////////Class Name: circular_stroke.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+  ~ ////////Copyright update: 10/17/19 2:53 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -28,11 +28,12 @@
     <item>
         <shape android:shape="oval">
             <gradient
-                android:angle="360"
-                android:endColor="@color/colorPrimaryDark"
-                android:gradientRadius="360"
+                android:centerX="50%"
+                android:centerY="50%"
+                android:gradientRadius="50%"
                 android:startColor="@color/colorPrimary"
-                android:type="sweep" />
+                android:endColor="@color/colorPrimaryDark"
+                android:type="radial" />
             <stroke
                 android:width="4dp"
                 android:color="@color/colorPrimaryDark" />

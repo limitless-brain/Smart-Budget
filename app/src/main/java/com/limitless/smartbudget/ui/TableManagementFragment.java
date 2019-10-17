@@ -4,7 +4,7 @@
  * ////////File Name: TableManagementFragment.java                                        ////////
  * ////////Class Name: TableManagementFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -30,29 +30,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.ListFragment;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.tabs.TabLayout;
+import com.limitless.smartbudget.MainActivity;
 import com.limitless.smartbudget.R;
 import com.limitless.smartbudget.interfaces.OnTableManagementListener;
 import com.limitless.smartbudget.ui.table.TableEditFragment;
 import com.limitless.smartbudget.utils.Constants;
 
+import java.util.Objects;
+
 public class TableManagementFragment extends ListFragment {
 
-    private AppViewModel mViewModel;
     private FragmentManager fragmentManager;
     private TabLayout mTabLayout;
+    private TextView mListTitle;
 
     private OnTableManagementListener mOnTableManagementListener;
-
-    private ArrayAdapter<String> mRecentDataAdapter;
 
     public TableManagementFragment() {
         //  Required empty constructor
@@ -61,7 +61,6 @@ public class TableManagementFragment extends ListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
     }
 
     @Override
@@ -69,6 +68,7 @@ public class TableManagementFragment extends ListFragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_table_management, container, false);
         mTabLayout = view.findViewById(R.id.TMTabLayout);
+        mListTitle = view.findViewById(R.id.listTitle);
         fragmentManager = getChildFragmentManager();
 
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -78,14 +78,17 @@ public class TableManagementFragment extends ListFragment {
                     case 2:
                         //  Incomes
                         mOnTableManagementListener.onTargetTableChanged(Constants.INCOMES);
+                        mListTitle.setText(Constants.getCurrentMonth() + "'s Records");
                         break;
                     case 1:
                         //  Fixed
                         mOnTableManagementListener.onTargetTableChanged(Constants.FIXED_EXPENSES);
+                        mListTitle.setText(Constants.getCurrentMonth() + "'s Records");
                         break;
                     case 0:
                         //  Living
                         mOnTableManagementListener.onTargetTableChanged(Constants.LIVING_EXPENSES);
+                        mListTitle.setText("Today's Records");
                         break;
                 }
             }
@@ -107,6 +110,7 @@ public class TableManagementFragment extends ListFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TableEditFragment fragment = new TableEditFragment(getListView(), getContext());
+        ((MainActivity) Objects.requireNonNull(getActivity())).setAssistantDataListener(fragment);
         fragmentManager.beginTransaction()
                 .replace(R.id.TableManagementFragmentLayout
                         , fragment)

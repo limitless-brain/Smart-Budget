@@ -4,7 +4,7 @@
   ~ ////////File Name: fragment_table_management_list_item.xml                                        ////////
   ~ ////////Class Name: fragment_table_management_list_item.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+  ~ ////////Copyright update: 10/17/19 2:53 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -26,24 +26,26 @@
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="36dp">
+    android:layout_height="36dp"
+    android:gravity="center_vertical">
 
     <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/tableDataItem1"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textAlignment="center"
             android:text="item1" />
 
         <TextView
             android:id="@+id/tableDataItem2"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:textAlignment="center"
             android:layout_weight="1"
             android:text="item2" />
 
@@ -52,6 +54,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textAlignment="center"
             android:text="item3" />
     </TableRow>
 </TableLayout>

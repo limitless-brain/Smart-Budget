@@ -4,7 +4,7 @@
   ~ ////////File Name: fragment_dashboard.xml                                        ////////
   ~ ////////Class Name: fragment_dashboard.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+  ~ ////////Copyright update: 10/17/19 2:53 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -64,31 +64,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
+        <!--
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:layout_margin="16dp"
+                    app:contentPadding="16dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="128dp"
-            android:layout_margin="16dp"
-            app:contentPadding="16dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Don't rush out" />
+                </androidx.cardview.widget.CardView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Don't rush out" />
-        </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:layout_margin="16dp"
+                    app:contentPadding="16dp">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="128dp"
-            android:layout_margin="16dp"
-            app:contentPadding="16dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="let's play" />
-        </androidx.cardview.widget.CardView>
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="let's play" />
+                </androidx.cardview.widget.CardView>
+        -->
         <!--Spacer to be above bottom bar-->
         <View
             android:layout_width="match_parent"

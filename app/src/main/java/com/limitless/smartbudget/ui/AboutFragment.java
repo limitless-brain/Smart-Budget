@@ -4,7 +4,7 @@
  * ////////File Name: AboutFragment.java                                        ////////
  * ////////Class Name: AboutFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -57,12 +57,26 @@ public class AboutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ImageView yazanProfile = view.findViewById(R.id.yazanProfile);
+        ImageView yazanProfile = view.findViewById(R.id.aboutMeImage);
         Picasso.get().load(Uri.parse(Constants.YAZAN_PIC_URL))
                 .into(yazanProfile, new Callback() {
                     @Override
                     public void onSuccess() {
                         Constants.roundPicture(yazanProfile, Objects.requireNonNull(getContext()));
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+
+        ImageView anasProfile = view.findViewById(R.id.aboutAnasImage);
+        Picasso.get().load(Uri.parse(Constants.ANAS_PIC_URL))
+                .into(anasProfile, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Constants.roundPicture(anasProfile, Objects.requireNonNull(getContext()));
                     }
 
                     @Override

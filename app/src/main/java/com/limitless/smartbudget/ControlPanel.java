@@ -4,7 +4,7 @@
  * ////////File Name: ControlPanel.java                                        ////////
  * ////////Class Name: ControlPanel                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -28,7 +28,7 @@ package com.limitless.smartbudget;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.widget.ArrayAdapter;
+import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
@@ -49,7 +49,6 @@ public class ControlPanel implements OnControlPanelListener {
     private static ControlPanel INSTANCE = null;
     private Context context;
     private DatabaseManagement databaseManagement;
-    private ArrayAdapter<String> mArrayAdapter;
 
     public ControlPanel(Context context) {
 
@@ -239,5 +238,28 @@ public class ControlPanel implements OnControlPanelListener {
                 break;
         }
         return result == null ? 0d : result;
+
+    }
+
+    private static class DatabaseOperation extends AsyncTask<Object, Float, Object> {
+        @Override
+        protected Object doInBackground(Object... objects) {
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+        }
+
+        @Override
+        protected void onProgressUpdate(Float... values) {
+            super.onProgressUpdate(values);
+        }
     }
 }

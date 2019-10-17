@@ -4,7 +4,7 @@
  * ////////File Name: SettingsFragment.java                                        ////////
  * ////////Class Name: SettingsFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -54,10 +54,10 @@ import androidx.fragment.app.Fragment;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.FirebaseAuth;
 import com.limitless.smartbudget.ControlPanel;
 import com.limitless.smartbudget.R;
 import com.limitless.smartbudget.db.model.Category;
+import com.limitless.smartbudget.firebase.FirebaseManager;
 import com.limitless.smartbudget.utils.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -83,7 +83,6 @@ public class SettingsFragment extends Fragment {
 
     //  State Variables
     private Context mContext;
-    private AppViewModel mViewModel;
     private ArrayAdapter<String> mCategories;
     private List mLivingCategories;
     private List mSavingCategories;
@@ -108,10 +107,9 @@ public class SettingsFragment extends Fragment {
         //  Required empty constructor
     }
 
-    public SettingsFragment(Context context, AppViewModel viewModel) {
+    public SettingsFragment(Context context) {
         mContext = context;
         mLivingCategories = new ArrayList();
-        mViewModel = viewModel;
         //  get tables data
         getTablesData();
     }
@@ -125,9 +123,7 @@ public class SettingsFragment extends Fragment {
 
         //  Inflating layout from xml
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
-        mViewModel.firebaseAuth.addAuthStateListener(firebaseAuth -> {
-            mViewModel.firebaseUser = firebaseAuth.getCurrentUser();
-            mViewModel.isSignIn = mViewModel.firebaseUser != null;
+        FirebaseManager.getInstance().addAuthStateListener(firebaseAuth -> {
             updateAccountUi();
         });
         initUi(view);
@@ -142,14 +138,11 @@ public class SettingsFragment extends Fragment {
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 //  User sign-in
-                mViewModel.firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                mViewModel.isSignIn = true;
             } else {
                 if (response == null) {
                     //  User press back button
                     Snackbar.make(Objects.requireNonNull(mSignAccount), "Sign-in canceled!", Snackbar.LENGTH_LONG)
                             .show();
-                    mViewModel.isSignIn = false;
                 }
             }
         }
@@ -252,12 +245,13 @@ public class SettingsFragment extends Fragment {
 
         //  Account Settings
         mSignAccount.setOnClickListener(view -> {
-            if (mViewModel.isSignIn && mViewModel.firebaseUser != null) {
+            if (FirebaseManager.getInstance().isSignedIn() &&
+                    FirebaseManager.getInstance().getCurrentUser() != null) {
                 //  Sign user out
-                mViewModel.firebaseAuth.signOut();
+                FirebaseManager.getInstance().signOut();
             } else {
                 //  We sign user in
-                startActivityForResult(mViewModel.signInIntent, Constants.FIREBASE_REQUEST_CODE);
+                startActivityForResult(FirebaseManager.getInstance().getSignInIntent(), Constants.FIREBASE_REQUEST_CODE);
             }
         });
 
@@ -269,7 +263,7 @@ public class SettingsFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
-                            mViewModel.firebaseUser.delete().addOnCompleteListener(task ->
+                            FirebaseManager.getInstance().getCurrentUser().delete().addOnCompleteListener(task ->
                             {
                                 Toast.makeText(mContext, "Account deleted.", Toast.LENGTH_LONG).show();
                             });
@@ -397,6 +391,12 @@ public class SettingsFragment extends Fragment {
      * Dialog to get color from the user
      */
     private void promptColorSelection(int pos, int operation) {
+
+        if (operation == OPERATION_REMOVE) {
+            preformOperation(pos, operation);
+            return;
+        }
+
         int[] colorList = Constants.getColorList();
         ColorPicker colorPicker = new ColorPicker(Objects.requireNonNull(getActivity()));
         colorPicker.setColors(colorList);
@@ -422,11 +422,12 @@ public class SettingsFragment extends Fragment {
     // Firebase user update ui
     ///////////////////////////////////////////////////////////////////////////
     private void updateAccountUi() {
-        if (mViewModel.firebaseUser != null && mViewModel.isSignIn) {
+        if (FirebaseManager.getInstance().getCurrentUser() != null &&
+                FirebaseManager.getInstance().isSignedIn()) {
             mSignAccount.setText("Sign Out");
             mDeleteAccount.setVisibility(View.VISIBLE);
             mProfileImageView.setVisibility(View.VISIBLE);
-            Uri profileUri = mViewModel.firebaseUser.getPhotoUrl();
+            Uri profileUri = FirebaseManager.getInstance().getCurrentUser().getPhotoUrl();
             if (profileUri.toString().contains("facebook")) {
                 String base = profileUri.toString();
                 String highRes = "?type=large&redirect=true&width=600&height=600";
@@ -446,11 +447,11 @@ public class SettingsFragment extends Fragment {
 
                         @Override
                         public void onError(Exception e) {
-                            mProfileImageView.setImageResource(R.drawable.ic_launcher_foreground);
+                            mProfileImageView.setImageResource(R.mipmap.ic_launcher_foreground);
                         }
                     });
             mProfileTextView.setVisibility(View.VISIBLE);
-            mProfileTextView.setText(mViewModel.firebaseUser.getDisplayName());
+            mProfileTextView.setText(FirebaseManager.getInstance().getCurrentUser().getDisplayName());
         } else {
             mSignAccount.setText("Sign In");
             mDeleteAccount.setVisibility(View.GONE);

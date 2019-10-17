@@ -4,7 +4,7 @@
  * ////////File Name: Constants.java                                        ////////
  * ////////Class Name: Constants                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -42,17 +42,19 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 public class Constants {
 
     // About Constants
-    public static final String YAZAN_PIC_URL = "https://scontent.fbey4-1.fna.fbcdn.net/v/t1.0-9/" +
-            "21149948_1447958455284982_7969909462353557852_n.jpg?_" +
-            "nc_cat=105&_nc_oc=AQlzPl2ohmp3giVxfNwY5vX9fbpgyzH7zNBHt59qag8r" +
-            "_lVjh5YyNs01p2xioRHs-ek&_nc_ht=scontent.fbey4-1.fna&oh=56c5bdd9e215" +
-            "f5722aa876a07ee7043b&oe=5E36F9B7";
+    public static final String YAZAN_PIC_URL = "https://med" +
+            "ia.licdn.com/dms/image/C5603AQE1AUzGnxVJ2g/profile-displayphoto-shrink_200" +
+            "_200/0?e=1576108800&v=beta&t=6Zh2Y7WEJqku1EsGEVwrTOkeP3k2-qfL4991qJSbx_o";
+    public static final String ANAS_PIC_URL = "https://media.licdn.com/dms/image/C4E03AQE9qG0dR6HDvA/" +
+            "profile-displayphoto-shrink_800_800/0?e=1576108800&v=beta&t=nX5e" +
+            "LPZvoAluzZ2WE5bULBBeoq1IigMCn7QslnbxRnA";
 
 
     //  tables index
@@ -116,9 +118,13 @@ public class Constants {
             colors[i] = colorList.get(i);
         return colors;
     }
-
     private static void addArray(ArrayList<Integer> colorList, @NotNull int[] colors) {
         for (int color : colors)
             colorList.add(color);
+    }
+
+    //  Get Current Month
+    public static String getCurrentMonth() {
+        return Calendar.getInstance().getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.US);
     }
 }

@@ -4,7 +4,7 @@
   ~ ////////File Name: strings.xml                                        ////////
   ~ ////////Class Name: strings.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+  ~ ////////Copyright update: 10/17/19 2:53 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -55,5 +55,17 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_version_name">Monie</string>
+    <string name="about_copyright">App development © 2019 Limitless Inc.</string>
+    <string name="about_anas_name">Anas Almoalem</string>
+    <string name="about_anas_text1">MBA Student at Nexford University</string>
+    <string name="about_anas_text2">Excel Developer</string>
+    <string name="about_me_name">Mohammad Yazan Suliman</string>
+    <string name="about_me_text1">Android Full-Stack Developer</string>
+    <string name="about_me_text2">Artificial Intelligence (AI)</string>
+    <string name="intro_slide_introduction_description">Save Today… To Save Tomorrow</string>
 
 </resources>

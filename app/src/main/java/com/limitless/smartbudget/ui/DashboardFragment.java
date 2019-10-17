@@ -4,7 +4,7 @@
  * ////////File Name: DashboardFragment.java                                        ////////
  * ////////Class Name: DashboardFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -29,6 +29,7 @@ package com.limitless.smartbudget.ui;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -81,11 +82,11 @@ public class DashboardFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
-        float incomes = (float) ControlPanel.getInstance(getContext())
+        float incomes = (float) ControlPanel.getInstance(mContext)
                 .getTotalValue(Constants.INCOMES).doubleValue();
-        float expenses = (float) (ControlPanel.getInstance(getContext())
+        float expenses = (float) (ControlPanel.getInstance(mContext)
                 .getTotalValue(Constants.FIXED_EXPENSES) +
-                ControlPanel.getInstance(getContext())
+                ControlPanel.getInstance(mContext)
                         .getTotalValue(Constants.LIVING_EXPENSES));
         float saving = incomes - expenses;
 
@@ -123,11 +124,12 @@ public class DashboardFragment extends Fragment {
         pieChart.animateXY(1400, 1400);
         pieChart.setEntryLabelColor(Color.BLACK);
         pieChart.setDrawEntryLabels(false);
+        pieChart.setNoDataText("No Data");
 
         //  Line Chart
         int dayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
-        //  int today = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        List categories = (List) ControlPanel.getInstance(getContext())
+
+        List categories = (List) ControlPanel.getInstance(mContext)
                 .getAllRecords(Constants.CATEGORIES);
         ArrayList<LineDataSet> lines = new ArrayList<>();
         ArrayList<Integer> circleColors = new ArrayList<>();
@@ -148,10 +150,14 @@ public class DashboardFragment extends Fragment {
                         .getTotalValue(Constants.LIVING_EXPENSES
                                 , Objects.requireNonNull(date).getTime()
                                 , (Category) object).doubleValue());
-                if (yValue == 0)
-                    circleColors.add(getResources()
-                            .getColor(android.R.color.transparent, null));
-                else
+                if (yValue == 0) {
+                    int color;
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                        color = getResources().getColor(android.R.color.transparent, null);
+                    else
+                        color = getResources().getColor(android.R.color.transparent);
+                    circleColors.add(color);
+                } else
                     circleColors.add(ColorTemplate.getHoloBlue());
                 Entry entry;
                 entry = new Entry(i, yValue);
@@ -197,7 +203,8 @@ public class DashboardFragment extends Fragment {
         lineChart.setDescription(null);
         lineChart.setDrawBorders(false);
         lineChart.getLegend().setEnabled(false);
-        lineChart.animateY(1400, Easing.EaseInBounce);
+        lineChart.setNoDataText("No Data");
+        lineChart.animateXY(1400, 2000, Easing.Linear);
         return root;
     }
 

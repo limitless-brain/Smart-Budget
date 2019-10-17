@@ -1,10 +1,11 @@
+
 /*
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  * ////////File Name: build.gradle                                        ////////
  * ////////Class Name: build                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -34,7 +35,7 @@ ext.versionMinor = 0
 ext.versionPatch = 0
 ext.versionClassifier = "Monie"
 ext.isSnapshot = false
-ext.minimumSdkVersion = 23
+ext.minimumSdkVersion = 21
 ext.maximumSdkVersion = 29
 
 android {
@@ -49,6 +50,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug{
+            buildConfigField ("String", "AppVersion", "\""+generateVersionName()+"\"")
+            buildConfigField ("Integer", "AppVersionCode", generateVersionCode().toString())
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -77,8 +82,11 @@ private String generateVersionName() {
 }
 
 dependencies {
-    def room_version = "2.2.0-rc01"
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def room_version = '2.2.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    //  walk through
+    implementation 'com.heinrichreimersoftware:material-intro:2.0.0'
 
     //  Room database
     implementation "androidx.room:room-runtime:$room_version"
@@ -86,7 +94,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     implementation 'androidx.annotation:annotation:1.1.0'
     implementation 'androidx.preference:preference:1.1.0'
-    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
@@ -101,13 +109,12 @@ dependencies {
     implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
 
 
-
     //  Firebase
-    implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
-    implementation 'com.google.firebase:firebase-core:16.0.6'
+    implementation 'com.firebaseui:firebase-ui-auth:6.0.2'
+    implementation 'com.google.firebase:firebase-core:17.2.0'
 
     //  Facebook
-    implementation 'com.facebook.android:facebook-android-sdk:5.5.1'
+    implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
@@ -121,4 +128,7 @@ dependencies {
 }
 repositories {
     mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
 }

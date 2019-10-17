@@ -4,7 +4,7 @@
  * ////////File Name: TableEditFragment.java                                        ////////
  * ////////Class Name: TableEditFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+ * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -27,6 +27,7 @@
 package com.limitless.smartbudget.ui.table;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,6 +40,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -50,6 +52,8 @@ import com.adroitandroid.chipcloud.ChipListener;
 import com.github.badoualy.datepicker.DatePickerTimeline;
 import com.limitless.smartbudget.ControlPanel;
 import com.limitless.smartbudget.R;
+import com.limitless.smartbudget.assistant.AssistantDataInterface;
+import com.limitless.smartbudget.assistant.RecordModel;
 import com.limitless.smartbudget.db.model.Category;
 import com.limitless.smartbudget.db.model.FixedExpenses;
 import com.limitless.smartbudget.db.model.Incomes;
@@ -89,7 +93,7 @@ import java.util.Objects;
  * Fill cloud chip view : {@linkplain TableEditFragment#fillCategoryChips()}
  */
 public class TableEditFragment extends Fragment implements OnTableManagementListener,
-        DatePickerTimeline.OnDateSelectedListener {
+        DatePickerTimeline.OnDateSelectedListener, AssistantDataInterface {
 
     //  State Variables
     private Context mContext;
@@ -150,7 +154,8 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                     item1.setText(dateString[1]);
                     item1.setTextColor(((LivingExpenses) mLivingExpensesList.get(position))
                             .getCategory().getColor());
-                    item2.setText(dateString[2]);
+                    if (dateString.length > 2)
+                        item2.setText(dateString[2]);
                     if (dateString.length > 3)
                         item3.setText(dateString[3]);
                     else
@@ -158,19 +163,18 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 } else {
                     item1.setText(dateString[0]);
                     item2.setText(dateString[1]);
-                    item3.setText(dateString[2]);
+                    if (dateString.length > 2)
+                        item3.setText(dateString[2]);
+                    else
+                        item3.setText("No Description");
                 }
                 return root;
             }
         };
         mListView.setAdapter(mArrayAdapter);
         controlPanel = ControlPanel.getInstance(mContext);
-        getTables();
-    }
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
+        Runnable runnable = this::getTables;
+        runnable.run();
     }
 
     @Override
@@ -307,6 +311,8 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
      */
     private void resetUI(int table) {
         //  Get current date
+        selectedItem = -1;
+        selectedCategory = "";
         Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
@@ -352,9 +358,12 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
             for (int i = 0; i < mCategoryList.size(); i++) {
                 mCategoryChipCloud.addChip(((Category) mCategoryList.get(i)).getName());
                 TextView child = ((TextView) mCategoryChipCloud.getChildAt(i));
-                child.setTextColor(((Category) mCategoryList.get(i)).getColor());
-                child.setBackground(getResources().getDrawable(
-                        R.drawable.rounded_stroke, null));
+                int color = ((Category) mCategoryList.get(i)).getColor();
+                child.setTextColor(color);
+                GradientDrawable drawable = (GradientDrawable) getResources()
+                        .getDrawable(R.drawable.rounded_stroke_chip, null);
+                drawable.setStroke(4, color);
+                child.setBackground(drawable);
                 child.setPadding(16, 0, 16, 0);
             }
         }
@@ -368,10 +377,13 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         mCategoryChipCloud.setSelectedChip(0);
         mCategoryChipCloud.setChipListener(mChipListener);
         TextView child = ((TextView) mCategoryChipCloud.getChildAt(0));
-        child.setTextColor(
-                Objects.requireNonNull(categoryObject).getColor());
-        child.setBackground(
-                getResources().getDrawable(R.drawable.rounded_stroke, null));
+        int color = Objects.requireNonNull(categoryObject).getColor();
+        child.setTextColor(color);
+        GradientDrawable drawable = (GradientDrawable) getResources().
+                getDrawable(R.drawable.rounded_stroke_chip, null);
+        drawable.setStroke(8, color);
+        child.setBackground(drawable);
+
         child.setPadding(16, 0, 16, 0);
     }
 
@@ -480,11 +492,16 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                     (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
             assert inputMethodManager != null;
             inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
-            try {
-                interactWithTable(mTable, addNew);
-            } catch (ParseException | NullPointerException e) {
-                e.printStackTrace();
-            }
+
+            Runnable runnable = () -> {
+                try {
+                    interactWithTable(mTable, addNew);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            };
+
+            runnable.run();
             resetUI(mTable);
             updateRecordList(mTable);
         });
@@ -499,7 +516,10 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 switch (item.getItemId()) {
                     case R.id.delete:
                         addNew = true;
-                        deleteRecord(mTable);
+                        Runnable runnable = () -> {
+                            deleteRecord(mTable);
+                        };
+                        runnable.run();
                         break;
                     case R.id.update:
                         addNew = false;
@@ -519,7 +539,7 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
         boolean isEnabled = false;
         switch (mTable) {
             case Constants.LIVING_EXPENSES:
-                isEnabled = selectedCategory != null &&
+                isEnabled = selectedCategory != null && !selectedCategory.isEmpty() &&
                         !mValueEditText.getText().toString().isEmpty() &&
                         Double.parseDouble(mValueEditText.getText().toString()) > 0;
                 break;
@@ -721,7 +741,8 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                 break;
         }
         selectedItem = -1;
-        getTables();
+        Runnable runnable = this::getTables;
+        runnable.run();
         updateRecordList(table);
     }
 
@@ -745,7 +766,48 @@ public class TableEditFragment extends Fragment implements OnTableManagementList
                         mIncomesList.get(selectedItem));
                 break;
         }
-        getTables();
+        Runnable runnable = this::getTables;
+        runnable.run();
         updateRecordList(table);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Handling assistant data
+    ///////////////////////////////////////////////////////////////////////////
+
+    @Override
+    public void onReceiveRecord(RecordModel record) {
+        //  Handling the record
+        if (!record.hasOperation()) {
+            Toast.makeText(mContext, "No Operation detected, Try again",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
+        String value = record.getValue();
+        String description = record.getDescription();
+        Date date = Calendar.getInstance().getTime();
+        mDateString = Constants.dateToString(date, Constants.DATE_PATTERN, Locale.US);
+        if (record.hasValue())
+            mValueEditText.setText(value);
+        if (record.hasDescription())
+            mDescriptionEditText.setText(description);
+        if (mTable == Constants.LIVING_EXPENSES) {
+            if (!record.hasCategory()) {
+                Toast.makeText(mContext, "No Category detected, Try again"
+                        , Toast.LENGTH_LONG).show();
+                return;
+            }
+            selectedCategory = record.getCategory().getName();
+        }
+        Runnable runnable = () -> {
+            try {
+                interactWithTable(mTable, true);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        };
+        runnable.run();
+        resetUI(mTable);
+        updateRecordList(mTable);
     }
 }

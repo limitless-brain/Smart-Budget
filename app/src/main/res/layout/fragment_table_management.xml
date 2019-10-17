@@ -4,7 +4,7 @@
   ~ ////////File Name: fragment_table_management.xml                                        ////////
   ~ ////////Class Name: fragment_table_management.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 10/2/19 4:31 PM                                       ////////
+  ~ ////////Copyright update: 10/17/19 2:53 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -90,7 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:text="Today Records"
+                        android:text="Today's Records"
                         android:textColor="@android:color/secondary_text_light"
                         android:textSize="18sp" />
 
@@ -112,10 +112,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="@font/ubuntu_bold"
-                    android:text="No Records been added"
+                    android:fontFamily="@font/ubuntu_medium"
+                    android:text="No Records have been added"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textSize="18sp" />
+                    android:textSize="14sp" />
             </androidx.cardview.widget.CardView>
 
             <!--Spacer to be above bottom bar-->
