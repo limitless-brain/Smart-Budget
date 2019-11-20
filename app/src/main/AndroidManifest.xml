@@ -5,7 +5,7 @@
   ~ ////////File Name: AndroidManifest.xml                                        ////////
   ~ ////////Class Name: AndroidManifest.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 10/17/19 2:53 PM                                       ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -55,15 +55,14 @@
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <activity
-            android:name=".AppIntro"
-            android:screenOrientation="locked"
-            android:theme="@style/Theme.Intro" />
+            android:name=".AppShowcase"
+            android:theme="@style/Theme.Intro">
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////File Name: styles.xml                                        ////////
+  ~ ////////Class Name: styles.xml                                  ////////
+  ~ ////////Project Name: $file.projectName                           ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
+  ~ ////////Author: yazan                                                   ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+<resources>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="fontFamily">@font/arimo</item>
+    </style>
+</resources>

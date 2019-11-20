@@ -4,7 +4,7 @@
   ~ ////////File Name: fragment_table_management.xml                                        ////////
   ~ ////////Class Name: fragment_table_management.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 10/17/19 2:53 PM                                       ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -83,16 +83,29 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:padding="8dp">
 
                     <TextView
                         android:id="@+id/listTitle"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true"
                         android:text="Today's Records"
                         android:textColor="@android:color/secondary_text_light"
                         android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tableManagementOldRecordManageBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:text="Old Records"
+                        android:textColor="@android:color/secondary_text_light"
+                        android:textAllCaps="false"
+                        android:textSize="18sp"/>
 
                     <ListView
                         android:id="@android:id/list"
@@ -105,6 +118,14 @@
                         android:clipToPadding="false"
                         android:nestedScrollingEnabled="true"
                         android:padding="8dp" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@id/tableManagementOldRecordManageBtn"
+                        android:background="@color/colorPrimaryDark" />
+
                 </RelativeLayout>
 
                 <TextView
@@ -123,6 +144,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_below="@id/list_card" />
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

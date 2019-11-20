@@ -4,7 +4,7 @@
  * ////////File Name: RecordModel.java                                        ////////
  * ////////Class Name: RecordModel                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
+ * ////////Copyright update: 11/20/19 1:05 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -154,7 +154,7 @@ public class RecordModel {
         //  iterate over the list for a category
         for (String currentWord : words) {
             for (String category : mCategories) {
-                if (currentWord.equals(category.toLowerCase())) {
+                if (currentWord.toLowerCase().equals(category.toLowerCase())) {
                     Log.i(TAG, "Category found = " + category);
                     int i = mCategories.indexOf(category);
                     mCategory = (Category) mCategoriesObjects.get(i);

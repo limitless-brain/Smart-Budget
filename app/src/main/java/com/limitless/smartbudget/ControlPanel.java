@@ -4,7 +4,7 @@
  * ////////File Name: ControlPanel.java                                        ////////
  * ////////Class Name: ControlPanel                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
+ * ////////Copyright update: 11/20/19 1:05 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -27,12 +27,12 @@
 package com.limitless.smartbudget;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.AsyncTask;
 
 import androidx.annotation.NonNull;
 import androidx.room.Room;
 
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.limitless.smartbudget.db.DatabaseManagement;
 import com.limitless.smartbudget.db.model.Category;
 import com.limitless.smartbudget.db.model.FixedExpenses;
@@ -70,9 +70,9 @@ public class ControlPanel implements OnControlPanelListener {
         if (categories.isEmpty()) {
             //  Create default category
             // TODO: 9/22/2019 Add them to resources
-            databaseManagement.categoryDoa().insert(new Category("Food", Color.MAGENTA));
-            databaseManagement.categoryDoa().insert(new Category("Transportation", Color.YELLOW));
-            databaseManagement.categoryDoa().insert(new Category("Petty Cash", Color.GREEN));
+            databaseManagement.categoryDoa().insert(new Category("Food", ColorTemplate.MATERIAL_COLORS[1]));
+            databaseManagement.categoryDoa().insert(new Category("Transportation", ColorTemplate.MATERIAL_COLORS[0]));
+            databaseManagement.categoryDoa().insert(new Category("Petty Cash", ColorTemplate.MATERIAL_COLORS[2]));
         } else {
             //  Created no need to do anything
         }
@@ -239,27 +239,5 @@ public class ControlPanel implements OnControlPanelListener {
         }
         return result == null ? 0d : result;
 
-    }
-
-    private static class DatabaseOperation extends AsyncTask<Object, Float, Object> {
-        @Override
-        protected Object doInBackground(Object... objects) {
-            return null;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
-        }
-
-        @Override
-        protected void onProgressUpdate(Float... values) {
-            super.onProgressUpdate(values);
-        }
     }
 }

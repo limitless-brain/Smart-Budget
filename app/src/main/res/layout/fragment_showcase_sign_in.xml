@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////File Name: fragment_showcase_sign_in.xml                                        ////////
+  ~ ////////Class Name: fragment_showcase_sign_in.xml                                  ////////
+  ~ ////////Project Name: $file.projectName                           ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
+  ~ ////////Author: yazan                                                   ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="360dp" />
+
+    <TextView
+        android:id="@+id/showcase_signIn_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/arimo"
+        android:text="Sign in to save your data online."
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+    <Button
+        android:id="@+id/showcase_signIn_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/btn_bg"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Sign In"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showcase_signIn_text" />
+</androidx.constraintlayout.widget.ConstraintLayout>

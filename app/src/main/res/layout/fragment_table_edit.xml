@@ -4,7 +4,7 @@
   ~ ////////File Name: fragment_table_edit.xml                                        ////////
   ~ ////////Class Name: fragment_table_edit.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -33,7 +33,7 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:padding="16dp"
-    tools:context=".ui.table.TableEditFragment">
+    tools:context=".ui.fragments.TableEditFragment">
 
     <TextView
         android:id="@+id/dateTitleTextView"
@@ -64,8 +64,7 @@
         <com.github.badoualy.datepicker.DatePickerTimeline
             android:id="@+id/datePicker"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 
     <LinearLayout
@@ -125,8 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
-
+            android:inputType="number"/>
 
         <TextView
             android:id="@+id/descriptionTitleTextView"

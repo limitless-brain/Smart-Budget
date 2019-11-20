@@ -4,7 +4,7 @@
   ~ ////////File Name: preloaded_fonts.xml                                        ////////
   ~ ////////Class Name: preloaded_fonts.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -26,6 +26,7 @@
 
 <resources>
     <array name="preloaded_fonts" translatable="false">
+        <item>@font/arimo</item>
         <item>@font/ubuntu_bold</item>
         <item>@font/ubuntu_medium</item>
     </array>

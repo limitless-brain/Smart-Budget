@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////File Name: bottomsheet_line_chart.xml                                        ////////
+  ~ ////////Class Name: bottomsheet_line_chart.xml                                  ////////
+  ~ ////////Project Name: $file.projectName                           ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
+  ~ ////////Author: yazan                                                   ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/linechartCategoriesList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

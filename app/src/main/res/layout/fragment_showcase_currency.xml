@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////File Name: fragment_showcase_currency.xml                                        ////////
+  ~ ////////Class Name: fragment_showcase_currency.xml                                  ////////
+  ~ ////////Project Name: $file.projectName                           ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
+  ~ ////////Author: yazan                                                   ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/showcase_currency_icon"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="360dp" />
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline3" >
+
+        <Button
+            android:id="@+id/showcase_currency_choose_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/arimo"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Choose Currency"
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/showcase_currency_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/btn_bg"
+            android:fontFamily="@font/arimo"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_centerHorizontal="true"
+            android:text="TextView"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/showcase_currency_done_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/rounded_stroke"
+        android:fontFamily="@font/arimo"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:text="Done"
+        android:textAllCaps="true"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
  * ////////File Name: Constants.java                                        ////////
  * ////////Class Name: Constants                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
+ * ////////Copyright update: 11/20/19 1:05 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -79,6 +79,7 @@ public class Constants {
 
     //  Text pattern constants
     public static final String DATE_PATTERN = "yyyy/MM/dd";
+    public static final String SETTING_PREF_FILE = "app_setting";
 
     //  Extract date from text
     public static Date dateFromString(String date, String pattern, Locale locale) throws ParseException {

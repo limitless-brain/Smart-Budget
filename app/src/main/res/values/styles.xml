@@ -4,7 +4,7 @@
   ~ ////////File Name: styles.xml                                        ////////
   ~ ////////Class Name: styles.xml                                  ////////
   ~ ////////Project Name: $file.projectName                           ////////
-  ~ ////////Copyright update: 9/26/19 12:52 PM                                       ////////
+  ~ ////////Copyright update: 11/20/19 1:05 PM                                       ////////
   ~ ////////Author: yazan                                                   ////////
   ~ ////////                                                                                    ////////
   ~ ////////                                                                                    ////////
@@ -29,15 +29,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
-        <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="fontFamily">@font/ubuntu_bold</item>
+        <item name="fontFamily">@font/arimo</item>
     </style>
 
     <style name="TabTextFont" parent="TextAppearance.Design.Tab">
-        <item name="fontFamily">@font/ubuntu_bold</item>
         <item name="textAllCaps">false</item>
     </style>
 

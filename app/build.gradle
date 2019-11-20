@@ -5,7 +5,7 @@
  * ////////File Name: build.gradle                                        ////////
  * ////////Class Name: build                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 10/17/19 2:53 PM                                       ////////
+ * ////////Copyright update: 11/20/19 1:05 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -32,7 +32,7 @@ apply plugin: 'com.google.gms.google-services'
 
 ext.versionMajor = 1
 ext.versionMinor = 0
-ext.versionPatch = 0
+ext.versionPatch = 1
 ext.versionClassifier = "Monie"
 ext.isSnapshot = false
 ext.minimumSdkVersion = 21
@@ -115,6 +115,21 @@ dependencies {
 
     //  Facebook
     implementation 'com.facebook.android:facebook-android-sdk:5.8.0'
+
+    //  Currency
+    implementation 'com.github.roadmaptravel:Curry:0.1.5'
+
+    //  Picker
+    implementation ('com.github.scrounger:countrycurrencypicker:1.1.1')
+            {
+                exclude group: "org.jetbrains", module: "annotations-java5"
+            }
+
+    //  RxAndroid
+    def rxAndroidVersion = "2.1.1"
+    def rxJavaVersion = "2.1.6"
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
