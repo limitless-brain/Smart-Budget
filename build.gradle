@@ -4,7 +4,7 @@
  * ////////File Name: build.gradle                                        ////////
  * ////////Class Name: build                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 11/20/19 1:05 PM                                       ////////
+ * ////////Copyright update: 11/20/19 1:10 PM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -34,7 +34,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0-beta03'
+        classpath 'com.android.tools.build:gradle:3.6.0-beta04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.2'
 
