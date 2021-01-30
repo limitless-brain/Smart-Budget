@@ -24,7 +24,7 @@
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  */
 
-package com.limitless.smartbudget.ui.fragments;
+package com.limitless.smartbudget.ui;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -107,21 +107,16 @@ public class SettingsFragment extends Fragment {
         //  Required empty constructor
     }
 
-    ///////////////////////////////////////////////////////////////////////////
-    // Fragment Overridden methods
-    ///////////////////////////////////////////////////////////////////////////
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //  Initialize state fields
-        mContext = getContext();
+    public SettingsFragment(Context context) {
+        mContext = context;
         mLivingCategories = new ArrayList();
-        //  Get tables data
+        //  get tables data
         getTablesData();
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Overridden methods
+    ///////////////////////////////////////////////////////////////////////////
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -169,34 +164,30 @@ public class SettingsFragment extends Fragment {
         mManageTabLayout = root.findViewById(R.id.settingManageCategoriesTabLayout);
         mConfirmButton = root.findViewById(R.id.settingManageCategoriesConfirm);
         mListView = root.findViewById(R.id.settingManageCategoriesList);
-
         //  Handling list view here
         // TODO: 9/28/2019 Organize this block
-        {
-            ArrayList<String> data = new ArrayList<>();
-            mCategories = new ArrayAdapter<String>(
-                    mContext, R.layout.fragment_setting_category_list_item, data) {
+        ArrayList<String> data = new ArrayList<>();
+        mCategories = new ArrayAdapter<String>(
+                mContext, R.layout.fragment_setting_category_list_item, data) {
 
-                @NonNull
-                @Override
-                public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-                    if (convertView == null) {
-                        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                        convertView = inflater.inflate(R.layout.fragment_setting_category_list_item,
-                                mListView, false);
-                    }
-                    TextView textView = convertView.findViewById(R.id.categoryName);
-                    ImageButton imageButton = convertView.findViewById(R.id.settingManageCategoriesRemove);
-                    textView.setText(getItem(position));
-                    textView.setTextColor(((Category) mLivingCategories.get(position)).getColor());
-                    imageButton.setTag(position);
-                    imageButton.setOnClickListener(o -> promptOperation((int) o.getTag(), OPERATION_REMOVE));
-
-                    return convertView;
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                if (convertView == null) {
+                    LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                    convertView = inflater.inflate(R.layout.fragment_setting_category_list_item,
+                            mListView, false);
                 }
-            };
-        }
+                TextView textView = convertView.findViewById(R.id.categoryName);
+                ImageButton imageButton = convertView.findViewById(R.id.settingManageCategoriesRemove);
+                textView.setText(getItem(position));
+                textView.setTextColor(((Category) mLivingCategories.get(position)).getColor());
+                imageButton.setTag(position);
+                imageButton.setOnClickListener(o -> promptOperation((int) o.getTag(), OPERATION_REMOVE));
 
+                return convertView;
+            }
+        };
         View view1 = getLayoutInflater().inflate(
                 R.layout.fragment_setting_category_list_footer, mListView, false);
         Button mAddButton = view1.findViewById(R.id.settingManageCategoriesAdd);

@@ -1,8 +1,8 @@
 /*
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
- * ////////File Name: PermissionFragment.java                                        ////////
- * ////////Class Name: PermissionFragment                                  ////////
+ * ////////File Name: AppIntro.java                                        ////////
+ * ////////Class Name: AppIntro                                  ////////
  * ////////Project Name: $file.projectName                           ////////
  * ////////Copyright update: 1/30/21 7:57 AM                                       ////////
  * ////////Author: yazan                                                   ////////
@@ -24,75 +24,70 @@
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  */
 
-package com.limitless.smartbudget.ui.fragments.Showcase;
+package com.limitless.smartbudget;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
 
-import com.heinrichreimersoftware.materialintro.app.SlideFragment;
-import com.limitless.smartbudget.AppShowcase;
-import com.limitless.smartbudget.R;
+import com.heinrichreimersoftware.materialintro.app.IntroActivity;
+import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 
-public class PermissionFragment extends SlideFragment {
-
-    //  State fields
-    private Context mContext;
-
+public class AppIntro extends IntroActivity implements ViewPager.OnPageChangeListener {
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        setFullscreen(true);
         super.onCreate(savedInstanceState);
 
-        // get base context
-        mContext = getContext();
+        //  First Slide
+        addSlide(
+                new SimpleSlide.Builder()
+                        .canGoBackward(false)
+                        .title(R.string.intro_slide_introduction_description)
+                        .background(R.color.colorPrimary)
+                        .image(R.mipmap.ic_launcher_round)
+                        .build());
+        /*//  Permission Slide
+        addSlide(
+                new SimpleSlide.Builder()
+                        .canGoBackward(false)
+                        .title(R.string.app_name)
+                        .description(R.string.intro_slide1_description)
+                        .image(R.mipmap.ic_launcher_round)
+                        .build());*/
+        //  Last Slide
+        addSlide(
+                new SimpleSlide.Builder()
+                        .canGoBackward(false)
+                        .title("Sign In")
+                        .description("Keep your data safe by store it online")
+                        .background(R.color.colorPrimary)
+                        .image(R.mipmap.ic_launcher_round)
+                        .build());
+
+        setButtonBackVisible(false);
+        addOnPageChangeListener(this);
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_showcase_permission, container, false);
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        if (isPermissionGranted()) {
-            nextSlide();
-            return root;
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        switch (position) {
+            case 0:
+
+                break;
+            case 1:
+
+                break;
         }
-
-        Button grant = root.findViewById(R.id.showcase_permission_button);
-        grant.setOnClickListener(v -> askForPermission());
-
-        return root;
-    }
-
-    private void askForPermission() {
-        ActivityCompat.requestPermissions(requireActivity()
-                , new String[]{Manifest.permission.RECORD_AUDIO}, AppShowcase.PERMISSIONS_REQUEST_CODE);
-    }
-
-    /**
-     * Check for audio permission
-     *
-     * @return permission state
-     */
-    private boolean isPermissionGranted() {
-        return ActivityCompat.checkSelfPermission(mContext, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
-    public boolean canGoBackward() {
-        return false;
-    }
+    public void onPageScrollStateChanged(int state) {
 
-    @Override
-    public boolean canGoForward() {
-        return isPermissionGranted();
     }
 }

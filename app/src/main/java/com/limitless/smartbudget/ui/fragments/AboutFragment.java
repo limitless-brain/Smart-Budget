@@ -4,7 +4,7 @@
  * ////////File Name: AboutFragment.java                                        ////////
  * ////////Class Name: AboutFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
- * ////////Copyright update: 11/20/19 1:05 PM                                       ////////
+ * ////////Copyright update: 1/30/21 7:57 AM                                       ////////
  * ////////Author: yazan                                                   ////////
  * ////////                                                                                    ////////
  * ////////                                                                                    ////////
@@ -42,8 +42,6 @@ import com.limitless.smartbudget.utils.Constants;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.Objects;
-
 public class AboutFragment extends Fragment {
 
     @Nullable
@@ -63,7 +61,7 @@ public class AboutFragment extends Fragment {
                     @Override
                     public void onSuccess() {
                         if (isVisible())
-                            Constants.roundPicture(yazanProfile, Objects.requireNonNull(getContext()));
+                            Constants.roundPicture(yazanProfile, requireContext());
                     }
 
                     @Override
@@ -78,7 +76,7 @@ public class AboutFragment extends Fragment {
                     @Override
                     public void onSuccess() {
                         if (isVisible())
-                            Constants.roundPicture(anasProfile, Objects.requireNonNull(getContext()));
+                            Constants.roundPicture(anasProfile, requireContext());
                     }
 
                     @Override

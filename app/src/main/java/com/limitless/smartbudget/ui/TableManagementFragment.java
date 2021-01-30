@@ -24,7 +24,7 @@
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  */
 
-package com.limitless.smartbudget.ui.fragments;
+package com.limitless.smartbudget.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -41,6 +41,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.limitless.smartbudget.MainActivity;
 import com.limitless.smartbudget.R;
 import com.limitless.smartbudget.interfaces.OnTableManagementListener;
+import com.limitless.smartbudget.ui.table.TableEditFragment;
 import com.limitless.smartbudget.utils.Constants;
 
 public class TableManagementFragment extends ListFragment {
@@ -53,6 +54,11 @@ public class TableManagementFragment extends ListFragment {
 
     public TableManagementFragment() {
         //  Required empty constructor
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override

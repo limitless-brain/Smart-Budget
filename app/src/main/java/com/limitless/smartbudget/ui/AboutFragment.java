@@ -1,8 +1,8 @@
 /*
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
- * ////////File Name: PermissionFragment.java                                        ////////
- * ////////Class Name: PermissionFragment                                  ////////
+ * ////////File Name: AboutFragment.java                                        ////////
+ * ////////Class Name: AboutFragment                                  ////////
  * ////////Project Name: $file.projectName                           ////////
  * ////////Copyright update: 1/30/21 7:57 AM                                       ////////
  * ////////Author: yazan                                                   ////////
@@ -24,75 +24,64 @@
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  */
 
-package com.limitless.smartbudget.ui.fragments.Showcase;
+package com.limitless.smartbudget.ui;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 
-import com.heinrichreimersoftware.materialintro.app.SlideFragment;
-import com.limitless.smartbudget.AppShowcase;
 import com.limitless.smartbudget.R;
+import com.limitless.smartbudget.utils.Constants;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
-public class PermissionFragment extends SlideFragment {
-
-    //  State fields
-    private Context mContext;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // get base context
-        mContext = getContext();
-    }
+public class AboutFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_showcase_permission, container, false);
-
-        if (isPermissionGranted()) {
-            nextSlide();
-            return root;
-        }
-
-        Button grant = root.findViewById(R.id.showcase_permission_button);
-        grant.setOnClickListener(v -> askForPermission());
-
-        return root;
-    }
-
-    private void askForPermission() {
-        ActivityCompat.requestPermissions(requireActivity()
-                , new String[]{Manifest.permission.RECORD_AUDIO}, AppShowcase.PERMISSIONS_REQUEST_CODE);
-    }
-
-    /**
-     * Check for audio permission
-     *
-     * @return permission state
-     */
-    private boolean isPermissionGranted() {
-        return ActivityCompat.checkSelfPermission(mContext, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_about, container, false);
     }
 
     @Override
-    public boolean canGoBackward() {
-        return false;
-    }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ImageView yazanProfile = view.findViewById(R.id.aboutMeImage);
+        Picasso.get().load(Uri.parse(Constants.YAZAN_PIC_URL))
+                .into(yazanProfile, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Constants.roundPicture(yazanProfile, requireContext());
+                    }
 
-    @Override
-    public boolean canGoForward() {
-        return isPermissionGranted();
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+
+        ImageView anasProfile = view.findViewById(R.id.aboutAnasImage);
+        Picasso.get().load(Uri.parse(Constants.ANAS_PIC_URL))
+                .into(anasProfile, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Constants.roundPicture(anasProfile, requireContext());
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                });
+
     }
 }

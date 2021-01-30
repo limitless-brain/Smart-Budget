@@ -1,8 +1,8 @@
 /*
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
- * ////////File Name: PermissionFragment.java                                        ////////
- * ////////Class Name: PermissionFragment                                  ////////
+ * ////////File Name: DotView.java                                        ////////
+ * ////////Class Name: DotView                                  ////////
  * ////////Project Name: $file.projectName                           ////////
  * ////////Copyright update: 1/30/21 7:57 AM                                       ////////
  * ////////Author: yazan                                                   ////////
@@ -24,75 +24,84 @@
  * ////////////////////////////////////////////////////////////////////////////////////////////////////
  */
 
-package com.limitless.smartbudget.ui.fragments.Showcase;
+package com.github.badoualy.datepicker;
 
-import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
+import androidx.core.content.ContextCompat;
 
-import com.heinrichreimersoftware.materialintro.app.SlideFragment;
-import com.limitless.smartbudget.AppShowcase;
-import com.limitless.smartbudget.R;
+/**
+ * Simple view to draw a colored and sized dot
+ */
+public class DotView extends View {
 
-public class PermissionFragment extends SlideFragment {
+    private Paint paint;
+    private int size = -1;
 
-    //  State fields
-    private Context mContext;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // get base context
-        mContext = getContext();
+    public DotView(Context context) {
+        this(context, null);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_showcase_permission, container, false);
+    public DotView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
-        if (isPermissionGranted()) {
-            nextSlide();
-            return root;
+    public DotView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public DotView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init() {
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setColor(Color.WHITE);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (size == -1) {
+            // Default size if full view
+            size = w;
         }
-
-        Button grant = root.findViewById(R.id.showcase_permission_button);
-        grant.setOnClickListener(v -> askForPermission());
-
-        return root;
-    }
-
-    private void askForPermission() {
-        ActivityCompat.requestPermissions(requireActivity()
-                , new String[]{Manifest.permission.RECORD_AUDIO}, AppShowcase.PERMISSIONS_REQUEST_CODE);
-    }
-
-    /**
-     * Check for audio permission
-     *
-     * @return permission state
-     */
-    private boolean isPermissionGranted() {
-        return ActivityCompat.checkSelfPermission(mContext, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
-    public boolean canGoBackward() {
-        return false;
+    protected void onDraw(Canvas canvas) {
+        canvas.drawCircle(getMeasuredWidth() / 2, getMeasuredHeight() / 2, size / 2, paint);
     }
 
-    @Override
-    public boolean canGoForward() {
-        return isPermissionGranted();
+    public void setColor(@ColorInt int color) {
+        paint.setColor(color);
+        invalidate();
+    }
+
+    public void setColorRes(@ColorRes int colorRes) {
+        setColor(ContextCompat.getColor(getContext(), colorRes));
+    }
+
+    public void setCircleSize(int size) {
+        this.size = size;
+        invalidate();
+    }
+
+    public void setCircleSizeDp(int sizeInDp) {
+        setCircleSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, sizeInDp, getResources().getDisplayMetrics()));
     }
 }

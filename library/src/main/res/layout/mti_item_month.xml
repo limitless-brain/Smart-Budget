@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////File Name: mti_item_month.xml                                        ////////
+  ~ ////////Class Name: mti_item_month.xml                                  ////////
+  ~ ////////Project Name: $file.projectName                           ////////
+  ~ ////////Copyright update: 1/30/21 7:57 AM                                       ////////
+  ~ ////////Author: yazan                                                   ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////                                                                                    ////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ~ ////////////////////////////////////////////////////////////////////////////////////////////////////
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/mti_month_width"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:clickable="true"
+    android:minHeight="@dimen/mti_month_height"
+    android:paddingStart="@dimen/mti_month_lbl_padding_horizontal"
+    android:paddingLeft="@dimen/mti_month_lbl_padding_horizontal"
+    android:paddingTop="@dimen/mti_month_lbl_padding_vertical"
+    android:paddingEnd="@dimen/mti_month_lbl_padding_horizontal"
+    android:paddingRight="@dimen/mti_month_lbl_padding_horizontal"
+    android:paddingBottom="@dimen/mti_month_lbl_padding_vertical">
+
+    <com.github.badoualy.datepicker.DotView
+        android:id="@+id/mti_view_indicator"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:id="@+id/mti_month_lbl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLength="8"
+        android:textColor="@color/mti_default_primary"
+        android:textSize="@dimen/mti_month_lbl_text"
+        tools:text="Feb\n17" />
+
+</FrameLayout>
